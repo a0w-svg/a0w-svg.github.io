@@ -1,6 +1,7 @@
 /* ==========================================================================
    a0w-svg (a0aRd) — Portfolio
-   One dark theme. One neutral pair (text on background) + one accent.
+   Dark by default, light on request (footer switch: Auto / Dark / Light).
+   One neutral pair (text on background) + one accent.
 
    GREEN = live or running. It is used only for:
      - the GitHub status in the hero (real data from the API),
@@ -37,6 +38,24 @@
   --ease: 160ms ease;
 
   color-scheme: dark;
+}
+
+/* Light theme: same roles, swapped neutrals, darker green so it stays readable
+   on a light background. Applied when chosen, or by "Auto" on a light system. */
+:root[data-theme="light"] {
+  --bg: #f7f7f4;
+  --fg: #141414;
+  --live: #15803d;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    --bg: #f7f7f4;
+    --fg: #141414;
+    --live: #15803d;
+    color-scheme: light;
+  }
 }
 
 /* ==========================================================================
@@ -544,16 +563,16 @@ code {
 /* ==========================================================================
    Footer — quiet language switch lives here
    ========================================================================== */
-.site-footer { padding: 36px 0; border-top: 1px solid var(--line); font-size: 0.85rem; color: var(--muted); }
-.footer-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 24px; }
-.footer-inner > .mono:first-child { margin-right: auto; }
-.footer-links { display: flex; flex-wrap: wrap; gap: 20px; }
-.footer-links a:hover { color: var(--fg); }
+.site-footer { padding: 28px 0; border-top: 1px solid var(--line); font-size: 0.85rem; color: var(--muted); }
+.footer-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 16px; }
+.footer-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; }
 
-.lang-switch { display: inline-flex; gap: 2px; }
-.lang-switch button { min-width: 36px; min-height: 32px; padding: 0 8px; border-radius: 4px; color: var(--muted); font-size: 0.82rem; }
-.lang-switch button:hover { color: var(--fg); }
-.lang-switch button[aria-pressed="true"] { color: var(--fg); background: var(--surface-2); }
+/* Quiet switches (theme, language) — small, muted, no accent */
+.quiet-switch { display: inline-flex; gap: 2px; }
+.quiet-switch button { min-width: 36px; min-height: 32px; padding: 0 8px; border-radius: 4px; color: var(--muted); font-size: 0.82rem; }
+.quiet-switch button:hover { color: var(--fg); }
+.quiet-switch button[aria-pressed="true"] { color: var(--fg); background: var(--surface-2); }
+.footer-controls .divider { width: 1px; height: 16px; background: var(--line-strong); }
 
 /* ==========================================================================
    Responsive & reduced motion

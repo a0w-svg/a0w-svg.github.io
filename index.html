@@ -7,6 +7,14 @@
   <meta name="description" content="Portfolio of a0w-svg (a0aRd): AzamiOS, USOS Checker, Hana_brainfuck and more." />
   <meta name="theme-color" content="#0f1012" />
 
+  <!-- Apply a saved Dark/Light choice before the page paints (no flash). "Auto" = no attribute. -->
+  <script>
+    try {
+      var savedTheme = localStorage.getItem("a0w_theme");
+      if (savedTheme === "dark" || savedTheme === "light") document.documentElement.setAttribute("data-theme", savedTheme);
+    } catch (e) {}
+  </script>
+
   <meta property="og:title" content="a0w-svg (a0aRd) — Systems &amp; Software Engineering" />
   <meta property="og:description" content="64-bit x86_64 OS development (AzamiOS), cross-platform Kotlin applications (USOS Checker), C/C++ interpreters, and security writeups." />
   <meta property="og:type" content="website" />
@@ -549,18 +557,18 @@
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <div class="mono">
-        <span>&copy; 2017–2026 <strong>a0w-svg (a0aRd)</strong></span>
-      </div>
-      <div class="lang-switch mono" role="group" aria-label="Language / Język">
-        <button type="button" data-lang="en" aria-pressed="true">EN</button>
-        <button type="button" data-lang="pl" aria-pressed="false">PL</button>
-      </div>
-      <div class="footer-links mono">
-        <a href="https://github.com/a0w-svg" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="https://github.com/a0w-svg/AzamiOS" target="_blank" rel="noopener noreferrer">AzamiOS</a>
-        <a href="https://github.com/a0w-svg/usoschecker-public" target="_blank" rel="noopener noreferrer">USOS Checker</a>
-        <a href="https://usoscheckerdesign.vercel.app/" target="_blank" rel="noopener noreferrer" data-i18n="footer_prototype">USOS Prototype</a>
+      <p class="mono">&copy; 2017–2026 <strong>a0w-svg (a0aRd)</strong></p>
+      <div class="footer-controls">
+        <div class="quiet-switch mono" role="group" aria-label="Theme / Motyw">
+          <button type="button" data-theme-choice="auto" aria-pressed="true" data-i18n="theme_auto">Auto</button>
+          <button type="button" data-theme-choice="dark" aria-pressed="false" data-i18n="theme_dark">Dark</button>
+          <button type="button" data-theme-choice="light" aria-pressed="false" data-i18n="theme_light">Light</button>
+        </div>
+        <span class="divider" aria-hidden="true"></span>
+        <div class="quiet-switch mono" role="group" aria-label="Language / Język">
+          <button type="button" data-lang="en" aria-pressed="true">EN</button>
+          <button type="button" data-lang="pl" aria-pressed="false">PL</button>
+        </div>
       </div>
     </div>
   </footer>

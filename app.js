@@ -343,6 +343,9 @@
   const I18N = {
     en: {
       skip_to_content: "Skip to main content",
+      theme_auto: "Auto",
+      theme_dark: "Dark",
+      theme_light: "Light",
       cta_projects: "See projects",
       cta_github: "GitHub profile ↗",
       status_loading: "Checking GitHub…",
@@ -364,7 +367,6 @@
       contact_usos_desc: "Bug reports and feature ideas for the Android and desktop app.",
       title_home: "a0w-svg (a0aRd) — Systems &amp; Software Engineering",
       telemetry_total: "~11.72 MB total",
-      footer_prototype: "USOS Prototype",
       azami_title: "AzamiOS — 64-Bit x86_64 Operating System",
       azami_predecessor: "Predecessor: JakOS (x86-32)",
       tab_kernel: "Kernel &amp; Linux ABI",
@@ -471,6 +473,9 @@
     },
     pl: {
       skip_to_content: "Przejdź do głównej treści",
+      theme_auto: "Auto",
+      theme_dark: "Ciemny",
+      theme_light: "Jasny",
       cta_projects: "Zobacz projekty",
       cta_github: "Profil na GitHubie ↗",
       status_loading: "Sprawdzam GitHuba…",
@@ -492,7 +497,6 @@
       contact_usos_desc: "Błędy i pomysły na nowe funkcje w aplikacji na Androida i komputer.",
       title_home: "a0w-svg (a0aRd) — systemy i oprogramowanie",
       telemetry_total: "łącznie ~11,72 MB",
-      footer_prototype: "Prototyp USOS",
       azami_title: "AzamiOS — 64-bitowy system operacyjny x86_64",
       azami_predecessor: "Poprzednik: JakOS (x86-32)",
       tab_kernel: "Jądro i ABI Linuksa",
@@ -601,7 +605,7 @@
 
   // --------------------------------------------------------------------------
   // 3. Language: follows the browser's language unless the visitor picked one
-  //    in the footer. One dark theme only — no theme switch.
+  //    in the footer. Theme: Auto (system), Dark or Light, also in the footer.
   // --------------------------------------------------------------------------
   function readStoredLang() {
     try {
@@ -689,6 +693,50 @@
       applyLanguage(lang);
     });
   });
+
+  // Theme: "auto" removes data-theme so CSS follows the system setting;
+  // "dark" / "light" force it. The <head> script applies the saved choice
+  // before first paint; this part handles the footer buttons.
+  const themeButtons = document.querySelectorAll("[data-theme-choice]");
+  const themeMeta = document.querySelector('meta[name="theme-color"]');
+  const systemLight = window.matchMedia("(prefers-color-scheme: light)");
+
+  function readStoredTheme() {
+    try {
+      const v = localStorage.getItem("a0w_theme");
+      return v === "dark" || v === "light" ? v : "auto";
+    } catch (_) {
+      return "auto";
+    }
+  }
+
+  function applyTheme(choice) {
+    if (choice === "auto") htmlEl.removeAttribute("data-theme");
+    else htmlEl.setAttribute("data-theme", choice);
+    themeButtons.forEach((b) => b.setAttribute("aria-pressed", String(b.getAttribute("data-theme-choice") === choice)));
+    const effective = choice === "auto" ? (systemLight.matches ? "light" : "dark") : choice;
+    if (themeMeta) themeMeta.setAttribute("content", effective === "light" ? "#f7f7f4" : "#0f1012");
+  }
+
+  themeButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const choice = btn.getAttribute("data-theme-choice");
+      try {
+        if (choice === "auto") localStorage.removeItem("a0w_theme");
+        else localStorage.setItem("a0w_theme", choice);
+      } catch (_) {
+        // Storage blocked: the choice just lasts for this visit
+      }
+      applyTheme(choice);
+    });
+  });
+
+  // In Auto, keep the browser bar colour in step if the system theme changes
+  systemLight.addEventListener("change", () => {
+    if (readStoredTheme() === "auto") applyTheme("auto");
+  });
+
+  applyTheme(readStoredTheme());
 
   // --------------------------------------------------------------------------
   // 3b. Projects segmented control — one project visible at a time
