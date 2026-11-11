@@ -343,14 +343,95 @@
   const I18N = {
     en: {
       skip_to_content: "Skip to main content",
-      nav_repos: "Repositories (11)",
-      nav_timeline: "Timeline",
-      hero_status: "GitHub API Telemetry Active · Latest Release: USOS Checker v1.10.0",
+      cta_projects: "See projects",
+      cta_github: "GitHub profile ↗",
+      status_loading: "Checking GitHub…",
+      status_live: "Live from GitHub · last push {date}",
+      status_offline: "GitHub unavailable · showing saved data",
+      home_projects_eyebrow: "Selected work",
+      home_projects_title: "Projects",
+      about_eyebrow: "About",
+      about_title: "Systems and application developer from Poland",
+      about_lead: "I write operating systems from bare metal in C and Assembly, and cross-platform apps in Kotlin. I have been publishing my work on GitHub since 2017 — from small Python tools to a 64-bit OS.",
+      contact_eyebrow: "Contact",
+      contact_title: "Get in touch",
+      contact_lead: "The best way to reach me is GitHub. For questions about a specific project, open an issue in its repository.",
+      contact_gh_title: "GitHub profile",
+      contact_gh_desc: "All public repositories, releases and activity.",
+      contact_azami_title: "AzamiOS — issues",
+      contact_azami_desc: "Bug reports and questions about the kernel, drivers and userspace.",
+      contact_usos_title: "USOS Checker — issues",
+      contact_usos_desc: "Bug reports and feature ideas for the Android and desktop app.",
+      title_home: "a0w-svg (a0aRd) — Systems &amp; Software Engineering",
+      telemetry_total: "~11.72 MB total",
+      footer_prototype: "USOS Prototype",
+      azami_title: "AzamiOS — 64-Bit x86_64 Operating System",
+      azami_predecessor: "Predecessor: JakOS (x86-32)",
+      tab_kernel: "Kernel &amp; Linux ABI",
+      tab_drivers: "Drivers &amp; Net",
+      tab_libc: "Custom libc &amp; Ports",
+      tab_gui: "azwm GUI &amp; VFS",
+      k_h: "Preemptive x86_64 Kernel &amp; Unmodified Linux Binaries",
+      k_p: "Implements the System V AMD64 Linux <code>syscall</code> ABI so static binaries compiled by an ordinary Linux toolchain execute directly without shims or source patches.",
+      k_1: "<strong>Memory &amp; Paging:</strong> Physical Memory Manager (PMM), slab <code>kmalloc</code>, 4-level PML4 paging with <code>mmap</code>/<code>munmap</code> and POPCNT bitmap acceleration.",
+      k_2: "<strong>Scheduling &amp; Signals:</strong> Preemptive per-CPU run queues, ELF64 loader, POSIX threads, job control (<code>SIGSTOP</code>/<code>SIGTSTP</code>/<code>SIGCONT</code>, <code>wait4</code>).",
+      k_3: "<strong>Debugging &amp; PMU:</strong> Full <code>ptrace(2)</code> (<code>TRACEME</code>, <code>ATTACH</code>, <code>SEIZE</code>, <code>int3</code>, single-step, COW-safe <code>PEEK</code>/<code>POKE</code>) + <code>perf_event_open(2)</code> hardware PMU counters.",
+      k_4: "<strong> ~20 ns vDSO Timekeeping:</strong> KVM pvclock / VMware TSC clocksource with sub-tick one-shot TSC-deadline interrupts for 1 ms precision <code>nanosleep</code>.",
+      k_5: "<strong>CPU Security &amp; Extensions:</strong> SMEP, SMAP, UMIP, PKU, NX, FSGSBASE, PCID, XSAVE/XSAVEC, RDRAND/RDSEED, SSE4.2 CRC-32C dentry hashing, and exception-fixup boot probing.",
+      d_h: "Hardware Abstraction Layer (HAL), Storage, USB 3.x &amp; Network Stack",
+      d_p: "Modular PCI bus enumeration with MSI/INTx routing, I/O APIC + LAPIC SMP interrupts, and paravirtual + physical device drivers.",
+      d_1: "<strong>Networking Cards:</strong> Intel <code>e1000</code> / <code>e100</code>, Realtek <code>RTL8139</code> / <code>RTL8169</code> (Gigabit), AMD PCNet, VMware <code>VMXNET3</code>, and <code>VirtIO-Net</code>.",
+      d_2: "<strong>TCP/IP Stack:</strong> Full Ethernet, ARP, IPv4, ICMPv4, UDP, TCP, BSD sockets, <code>dhcpcd</code>, <code>ntpd</code>, <code>httpd</code>, <code>curl</code>, and <code>nslookup</code>.",
+      d_3: "<strong>USB &amp; Input:</strong> <code>xHCI</code> (USB 3.x) with BIOS handoff, Intel PCH port routing, hot-plug, USB HID keyboards/mice/tablets, PS/2, and <code>virtio-input</code>.",
+      d_4: "<strong>Audio &amp; Video:</strong> Intel HDA, AC'97, ES1370, MPU-401 MIDI, PC Speaker; VirtIO GPU, BGA Display, and Framebuffer DRM.",
+      d_5: "<strong>Storage:</strong> ATA IDE, Floppy DMA/FDC, VirtIO Block, and VirtIO 9P host filesystem sharing.",
+      l_h: "Freestanding POSIX C Library (<code>userland/libc/</code>) &amp; Ported Packages",
+      l_p: "Zero kernel leakage into userspace, licensed under BSD-3-Clause alongside a rich software ports tree installable via <code>pkg</code>.",
+      l_1: "<strong>Core POSIX &amp; Linux APIs:</strong> <code>stdio.h</code>, <code>stdlib.h</code>, <code>pthread.h</code>, <code>sys/epoll.h</code>, <code>linux/futex.h</code> (including <code>futex2</code>), <code>sys/statx.h</code>, <code>sys/sendfile.h</code>, <code>spawn.h</code>, <code>mqueue.h</code>, <code>regex.h</code>, <code>ftw.h</code>.",
+      l_2: "<strong>System Shell &amp; Toolchain:</strong> GNU Bash 5.2 as <code>/bin/sh</code> (plus native <code>azami-sh</code>), TinyCC (<code>tcc</code>) &amp; GNU Make on-device compiler toolchain.",
+      l_3: "<strong>Ported Ecosystem:</strong> <code>musl 1.2.5</code> + <code>BusyBox 1.36.1</code> (401 applets), Lua, MicroPython, SQLite, <code>jq</code>, <code>gawk</code>, <code>curl</code>, <code>nano</code>, <code>less</code>, <code>tree</code>.",
+      g_h: "Azami Window Manager (<code>azwm</code>), X11 Support &amp; Virtual Filesystem",
+      g_p: "Complete desktop environment over a double-buffered alpha-blending software compositor and Unix FHS root tree.",
+      g_1: "<strong>Desktop Apps:</strong> <code>azwm</code> window manager, <code>terminal</code>, <code>texteditor</code>, <code>filemanager</code>, <code>sysmon</code>, <code>calculator</code>, <code>paint</code>, and games (<code>minesweeper</code>, <code>2048</code>, <code>snake</code>).",
+      g_2: "<strong>X11 Client Protocol:</strong> Runs classic X11 clients including <code>xclock</code>, <code>xcalc</code>, <code>xeyes</code>, and <code>xcursor</code>.",
+      g_3: "<strong>VFS &amp; Filesystems:</strong> <code>ext2</code>, <code>FAT32</code>, <code>ProcFS</code>, <code>SysFS</code>, <code>DevFS</code>, <code>Devpts</code>, <code>PipeFS</code>, and <code>TarFS</code> initrd with POSIX ACLs (<code>getfacl</code>/<code>setfacl</code>).",
+      usos_title: "USOS Checker — Android &amp; Desktop Client",
+      usos_repo_btn: "GitHub Repo",
+      usos_platform_desktop: "Desktop",
+      usos_platform_setup: "API Setup",
+      bf_eyebrow: "Interactive Code Lab · a0w-svg/Hana_brainfuck",
+      bf_source_btn: "View C++ Source (a0w-svg/Hana_brainfuck)",
+      bf_load_azami: "Load brainfuck_programs/AzamiOS.bf",
+      bf_load_hello: "Load brainfuck_programs/hello.bf",
+      bf_reset: "Reset Tape",
+      bf_source_label: "SOURCE: brainfuck_programs/AzamiOS.bf",
+      bf_tape_label: "MEMORY TAPE (CELLS #0 – #7)",
+      bf_stdout_label: "STDOUT OUTPUT",
+      sort_updated: "Sort: Recently Updated",
+      sort_size: "Sort: Codebase Size",
+      sort_name: "Sort: Alphabetical",
+      modal_tree_label: "REPOSITORY TREE &amp; SUBSYSTEMS",
+      modal_open: "Open on GitHub",
+      tl1_title: "Python Automation &amp; First x86 Kernel",
+      tl1_desc: "Built <code>alsq</code> Discord bot and <code>password-generator</code> in Python, then began low-level OS development with <strong>JakOS</strong> (Rose-lk 32-bit x86 kernel in C &amp; Assembly).",
+      tl2_title: "C++, C# WPF, CTF Writeups &amp; AzamiOS Genesis",
+      tl2_desc: "Created <strong>Banking_System_Project</strong>, <strong>Wei_Matrix_calc</strong> (C# WPF), <strong>KnightCTFWriteups</strong> (2022), <strong>Snake</strong> (C++), and started the <strong>AzamiOS</strong> &amp; <strong>Hana_brainfuck</strong> repositories.",
+      tl3_title: "Embedded SDL Games &amp; Language Interpreters",
+      tl3_desc: "Explored retro handheld game architecture with <strong>yatka</strong> (C &amp; SDL 1.2) and refined <strong>Hana_brainfuck</strong> with custom Brainfuck programs (<code>AzamiOS.bf</code>).",
+      tl4_title: "64-Bit AzamiOS &amp; USOS Checker v1.10.0",
+      tl4_desc: "Expanded <strong>AzamiOS</strong> into an 8.4+ MB 64-bit x86_64 OS running unmodified Linux binaries &amp; <code>azwm</code> GUI, and shipped 24 releases of <strong>USOS Checker</strong> for Android, Windows &amp; Linux.",
+      ph_search: "Search repos, C, Kotlin, x86...",
+      usos_download: "Download latest",
+      usos_theme_dark: "Dark (OLED)",
+      usos_theme_light: "Light",
+      usos_step1: "Step 1: Auto Key",
+      usos_step2: "Step 2: Key Guide",
+      bf_stats: "{ops} ops executed · pointer at cell #{ptr}",
+      bf_reset_stats: "Tape reset (0 ops)",
+      bf_empty: "(empty stdout)",
       hero_location: "Poland · On GitHub since Jan 2017",
       hero_heading: 'Building from <span class="gradient-text">x86_64 Kernel Space</span> to Cross-Platform Native Apps.',
       hero_lead: 'Systems and application developer crafting operating systems from bare metal in C &amp; Assembly (<strong>AzamiOS</strong>, <strong>JakOS</strong>) and multi-platform Kotlin software for Android, Windows, and Linux (<strong>USOS Checker</strong>).',
-      cta_explore_os: "Explore AzamiOS Kernel",
-      cta_explore_usos: "USOS Checker v1.10.0",
       metric_public_repos: "Public Repositories",
       metric_code_volume: "Public Source Volume",
       metric_releases: "Published Releases",
@@ -390,14 +471,95 @@
     },
     pl: {
       skip_to_content: "Przejdź do głównej treści",
-      nav_repos: "Repozytoria (11)",
-      nav_timeline: "Oś czasu",
-      hero_status: "Telemetria GitHub API aktywna · Najnowsze wydanie: USOS Checker v1.10.0",
+      cta_projects: "Zobacz projekty",
+      cta_github: "Profil na GitHubie ↗",
+      status_loading: "Sprawdzam GitHuba…",
+      status_live: "Na żywo z GitHuba · ostatnia zmiana {date}",
+      status_offline: "GitHub niedostępny · pokazuję zapisane dane",
+      home_projects_eyebrow: "Wybrane prace",
+      home_projects_title: "Projekty",
+      about_eyebrow: "O mnie",
+      about_title: "Programista systemów i aplikacji z Polski",
+      about_lead: "Piszę systemy operacyjne od zera w C i asemblerze oraz wieloplatformowe aplikacje w Kotlinie. Publikuję swoje projekty na GitHubie od 2017 roku — od małych narzędzi w Pythonie po 64-bitowy system.",
+      contact_eyebrow: "Kontakt",
+      contact_title: "Skontaktuj się ze mną",
+      contact_lead: "Najlepiej skontaktować się przez GitHuba. Pytania o konkretny projekt zgłoś jako issue w jego repozytorium.",
+      contact_gh_title: "Profil na GitHubie",
+      contact_gh_desc: "Wszystkie publiczne repozytoria, wydania i aktywność.",
+      contact_azami_title: "AzamiOS — zgłoszenia",
+      contact_azami_desc: "Błędy i pytania dotyczące jądra, sterowników i przestrzeni użytkownika.",
+      contact_usos_title: "USOS Checker — zgłoszenia",
+      contact_usos_desc: "Błędy i pomysły na nowe funkcje w aplikacji na Androida i komputer.",
+      title_home: "a0w-svg (a0aRd) — systemy i oprogramowanie",
+      telemetry_total: "łącznie ~11,72 MB",
+      footer_prototype: "Prototyp USOS",
+      azami_title: "AzamiOS — 64-bitowy system operacyjny x86_64",
+      azami_predecessor: "Poprzednik: JakOS (x86-32)",
+      tab_kernel: "Jądro i ABI Linuksa",
+      tab_drivers: "Sterowniki i sieć",
+      tab_libc: "Własna libc i porty",
+      tab_gui: "GUI azwm i VFS",
+      k_h: "Wywłaszczające jądro x86_64 i niezmodyfikowane binaria Linuksa",
+      k_p: "Implementuje ABI wywołań <code>syscall</code> System V AMD64 Linuksa, dzięki czemu statyczne binaria skompilowane zwykłym linuksowym toolchainem działają bezpośrednio — bez nakładek i łatek w kodzie.",
+      k_1: "<strong>Pamięć i stronicowanie:</strong> menedżer pamięci fizycznej (PMM), alokator slab <code>kmalloc</code>, 4-poziomowe stronicowanie PML4 z <code>mmap</code>/<code>munmap</code> i bitmapą przyspieszaną instrukcją POPCNT.",
+      k_2: "<strong>Planowanie i sygnały:</strong> wywłaszczające kolejki zadań dla każdego procesora, loader ELF64, wątki POSIX, kontrola zadań (<code>SIGSTOP</code>/<code>SIGTSTP</code>/<code>SIGCONT</code>, <code>wait4</code>).",
+      k_3: "<strong>Debugowanie i PMU:</strong> pełny <code>ptrace(2)</code> (<code>TRACEME</code>, <code>ATTACH</code>, <code>SEIZE</code>, <code>int3</code>, praca krokowa, bezpieczne dla COW <code>PEEK</code>/<code>POKE</code>) oraz sprzętowe liczniki PMU przez <code>perf_event_open(2)</code>.",
+      k_4: "<strong>Pomiar czasu vDSO w ~20 ns:</strong> źródło zegara KVM pvclock / VMware TSC i jednorazowe przerwania TSC-deadline krótsze niż tick, dające <code>nanosleep</code> z dokładnością 1 ms.",
+      k_5: "<strong>Bezpieczeństwo i rozszerzenia procesora:</strong> SMEP, SMAP, UMIP, PKU, NX, FSGSBASE, PCID, XSAVE/XSAVEC, RDRAND/RDSEED, haszowanie wpisów katalogów CRC-32C z SSE4.2 oraz bezpieczne wykrywanie funkcji procesora przy starcie.",
+      d_h: "Warstwa abstrakcji sprzętu (HAL), pamięć masowa, USB 3.x i stos sieciowy",
+      d_p: "Modułowe wykrywanie urządzeń na magistrali PCI z routingiem MSI/INTx, przerwania SMP przez I/O APIC i LAPIC oraz sterowniki urządzeń parawirtualnych i fizycznych.",
+      d_1: "<strong>Karty sieciowe:</strong> Intel <code>e1000</code> / <code>e100</code>, Realtek <code>RTL8139</code> / <code>RTL8169</code> (Gigabit), AMD PCNet, VMware <code>VMXNET3</code> i <code>VirtIO-Net</code>.",
+      d_2: "<strong>Stos TCP/IP:</strong> pełny Ethernet, ARP, IPv4, ICMPv4, UDP, TCP, gniazda BSD, <code>dhcpcd</code>, <code>ntpd</code>, <code>httpd</code>, <code>curl</code> i <code>nslookup</code>.",
+      d_3: "<strong>USB i urządzenia wejścia:</strong> <code>xHCI</code> (USB 3.x) z przejęciem kontroli od BIOS-u, routing portów Intel PCH, podłączanie na gorąco, klawiatury, myszy i tablety USB HID, PS/2 oraz <code>virtio-input</code>.",
+      d_4: "<strong>Dźwięk i obraz:</strong> Intel HDA, AC'97, ES1370, MPU-401 MIDI, PC Speaker; VirtIO GPU, BGA Display i Framebuffer DRM.",
+      d_5: "<strong>Pamięć masowa:</strong> ATA IDE, stacja dyskietek DMA/FDC, VirtIO Block i współdzielenie plików z hostem przez VirtIO 9P.",
+      l_h: "Samodzielna biblioteka C zgodna z POSIX (<code>userland/libc/</code>) i przeportowane pakiety",
+      l_p: "Kod jądra nie przenika do przestrzeni użytkownika. Biblioteka ma licencję BSD-3-Clause, a obok niej jest bogate drzewo portów instalowanych przez <code>pkg</code>.",
+      l_1: "<strong>Podstawowe API POSIX i Linuksa:</strong> <code>stdio.h</code>, <code>stdlib.h</code>, <code>pthread.h</code>, <code>sys/epoll.h</code>, <code>linux/futex.h</code> (w tym <code>futex2</code>), <code>sys/statx.h</code>, <code>sys/sendfile.h</code>, <code>spawn.h</code>, <code>mqueue.h</code>, <code>regex.h</code>, <code>ftw.h</code>.",
+      l_2: "<strong>Powłoka i narzędzia:</strong> GNU Bash 5.2 jako <code>/bin/sh</code> (oraz natywna <code>azami-sh</code>), kompilator TinyCC (<code>tcc</code>) i GNU Make działające bezpośrednio w systemie.",
+      l_3: "<strong>Przeportowane oprogramowanie:</strong> <code>musl 1.2.5</code> + <code>BusyBox 1.36.1</code> (401 apletów), Lua, MicroPython, SQLite, <code>jq</code>, <code>gawk</code>, <code>curl</code>, <code>nano</code>, <code>less</code>, <code>tree</code>.",
+      g_h: "Menedżer okien Azami (<code>azwm</code>), obsługa X11 i wirtualny system plików",
+      g_p: "Pełne środowisko graficzne oparte na programowym kompozytorze z podwójnym buforowaniem i przezroczystością oraz na drzewie katalogów Unix FHS.",
+      g_1: "<strong>Aplikacje:</strong> menedżer okien <code>azwm</code>, <code>terminal</code>, <code>texteditor</code>, <code>filemanager</code>, <code>sysmon</code>, <code>calculator</code>, <code>paint</code> oraz gry (<code>minesweeper</code>, <code>2048</code>, <code>snake</code>).",
+      g_2: "<strong>Protokół klienta X11:</strong> uruchamia klasyczne programy X11, m.in. <code>xclock</code>, <code>xcalc</code>, <code>xeyes</code> i <code>xcursor</code>.",
+      g_3: "<strong>VFS i systemy plików:</strong> <code>ext2</code>, <code>FAT32</code>, <code>ProcFS</code>, <code>SysFS</code>, <code>DevFS</code>, <code>Devpts</code>, <code>PipeFS</code> i initrd <code>TarFS</code> z listami ACL POSIX (<code>getfacl</code>/<code>setfacl</code>).",
+      usos_title: "USOS Checker — aplikacja na Androida i komputer",
+      usos_repo_btn: "Repozytorium na GitHubie",
+      usos_platform_desktop: "Komputer",
+      usos_platform_setup: "Konfiguracja API",
+      bf_eyebrow: "Interaktywne laboratorium · a0w-svg/Hana_brainfuck",
+      bf_source_btn: "Kod źródłowy C++ (a0w-svg/Hana_brainfuck)",
+      bf_load_azami: "Wczytaj brainfuck_programs/AzamiOS.bf",
+      bf_load_hello: "Wczytaj brainfuck_programs/hello.bf",
+      bf_reset: "Wyczyść taśmę",
+      bf_source_label: "KOD: brainfuck_programs/AzamiOS.bf",
+      bf_tape_label: "TAŚMA PAMIĘCI (KOMÓRKI #0 – #7)",
+      bf_stdout_label: "WYJŚCIE (STDOUT)",
+      sort_updated: "Sortuj: ostatnio zmienione",
+      sort_size: "Sortuj: rozmiar kodu",
+      sort_name: "Sortuj: alfabetycznie",
+      modal_tree_label: "DRZEWO REPOZYTORIUM I PODSYSTEMY",
+      modal_open: "Otwórz na GitHubie",
+      tl1_title: "Automatyzacja w Pythonie i pierwsze jądro x86",
+      tl1_desc: "Napisałem w Pythonie bota Discord <code>alsq</code> i <code>password-generator</code>, a potem zacząłem tworzyć system operacyjny <strong>JakOS</strong> (32-bitowe jądro x86 Rose-lk w C i asemblerze).",
+      tl2_title: "C++, C# WPF, rozwiązania CTF i początki AzamiOS",
+      tl2_desc: "Powstały <strong>Banking_System_Project</strong>, <strong>Wei_Matrix_calc</strong> (C# WPF), <strong>KnightCTFWriteups</strong> (2022) i <strong>Snake</strong> (C++), a także repozytoria <strong>AzamiOS</strong> i <strong>Hana_brainfuck</strong>.",
+      tl3_title: "Gry w SDL na konsole przenośne i interpretery języków",
+      tl3_desc: "Poznawałem budowę gier na retro konsole przenośne w projekcie <strong>yatka</strong> (C i SDL 1.2) i rozwijałem <strong>Hana_brainfuck</strong> o własne programy w Brainfucku (<code>AzamiOS.bf</code>).",
+      tl4_title: "64-bitowy AzamiOS i USOS Checker v1.10.0",
+      tl4_desc: "Rozbudowałem <strong>AzamiOS</strong> do ponad 8,4 MB kodu — 64-bitowego systemu x86_64, który uruchamia niezmodyfikowane binaria Linuksa i ma GUI <code>azwm</code> — oraz wydałem 24 wersje <strong>USOS Checker</strong> na Androida, Windows i Linuksa.",
+      ph_search: "Szukaj: nazwa, C, Kotlin, x86...",
+      usos_download: "Pobierz najnowszą",
+      usos_theme_dark: "Ciemny (OLED)",
+      usos_theme_light: "Jasny",
+      usos_step1: "Krok 1: automatyczny klucz",
+      usos_step2: "Krok 2: instrukcja klucza",
+      bf_stats: "{ops} operacji · wskaźnik na komórce #{ptr}",
+      bf_reset_stats: "Taśma wyczyszczona (0 operacji)",
+      bf_empty: "(brak wyjścia)",
       hero_location: "Polska · Na GitHubie od stycznia 2017",
       hero_heading: 'Od <span class="gradient-text">jądra systemu x86_64</span> po wieloplatformowe aplikacje natywne.',
       hero_lead: 'Tworzę niskopoziomowe systemy operacyjne w C i asemblerze (<strong>AzamiOS</strong>, <strong>JakOS</strong>) oraz wieloplatformowe aplikacje w Kotlinie na Androida, Windows i Linuksa (<strong>USOS Checker</strong>).',
-      cta_explore_os: "Poznaj jądro AzamiOS",
-      cta_explore_usos: "USOS Checker v1.10.0",
       metric_public_repos: "Publiczne repozytoria",
       metric_code_volume: "Rozmiar kodu źródłowego",
       metric_releases: "Opublikowane wydania",
@@ -437,46 +599,60 @@
     }
   };
 
-  let currentLang = localStorage.getItem("a0w_lang") || "en";
+  // --------------------------------------------------------------------------
+  // 3. Language: follows the browser's language unless the visitor picked one
+  //    in the footer. One dark theme only — no theme switch.
+  // --------------------------------------------------------------------------
+  function readStoredLang() {
+    try {
+      return localStorage.getItem("a0w_lang");
+    } catch (_) {
+      return null;
+    }
+  }
+
+  function detectLang() {
+    // The first language in the visitor's list that this site supports wins
+    const prefs = navigator.languages || [navigator.language || "en"];
+    for (const l of prefs) {
+      const base = String(l).toLowerCase().split("-")[0];
+      if (I18N[base]) return base;
+    }
+    return "en";
+  }
+
+  let currentLang = I18N[readStoredLang()] ? readStoredLang() : detectLang();
   let currentFilter = "all";
   let currentSearch = "";
   let currentSort = "updated";
 
-  // --------------------------------------------------------------------------
-  // 3. Theme & Language Management
-  // --------------------------------------------------------------------------
   const htmlEl = document.documentElement;
-  const themeBtn = document.getElementById("theme-toggle");
-  const iconSun = document.getElementById("icon-sun");
-  const iconMoon = document.getElementById("icon-moon");
-  const langBtn = document.getElementById("lang-toggle");
-  const langLabel = document.getElementById("lang-label");
+  const langButtons = document.querySelectorAll("[data-lang]");
 
-  function applyTheme(theme) {
-    htmlEl.setAttribute("data-theme", theme);
-    localStorage.setItem("a0w_theme", theme);
-    if (theme === "light") {
-      iconSun.setAttribute("hidden", "");
-      iconMoon.removeAttribute("hidden");
+  // GitHub status in the hero: "loading" until the API answers, then "live" or "offline"
+  const liveStatusEl = document.getElementById("live-status");
+  const liveStatusText = document.getElementById("live-status-text");
+  let liveState = { state: "loading", lastPush: null };
+
+  function renderLiveStatus() {
+    if (!liveStatusEl || !liveStatusText) return;
+    liveStatusEl.setAttribute("data-state", liveState.state);
+    if (liveState.state === "live") {
+      const date = new Date(liveState.lastPush).toLocaleDateString(currentLang === "pl" ? "pl-PL" : "en-GB", {
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+      });
+      liveStatusText.textContent = t("status_live", { date });
     } else {
-      iconMoon.setAttribute("hidden", "");
-      iconSun.removeAttribute("hidden");
+      liveStatusText.textContent = t(liveState.state === "offline" ? "status_offline" : "status_loading");
     }
   }
 
-  const savedTheme = localStorage.getItem("a0w_theme") || "dark";
-  applyTheme(savedTheme);
-
-  themeBtn.addEventListener("click", () => {
-    const next = htmlEl.getAttribute("data-theme") === "dark" ? "light" : "dark";
-    applyTheme(next);
-  });
-
   function applyLanguage(lang) {
     currentLang = lang;
-    localStorage.setItem("a0w_lang", lang);
     htmlEl.setAttribute("lang", lang);
-    langLabel.textContent = lang.toUpperCase();
+    langButtons.forEach((b) => b.setAttribute("aria-pressed", String(b.getAttribute("data-lang") === lang)));
 
     const dict = I18N[lang] || I18N.en;
     document.querySelectorAll("[data-i18n]").forEach((el) => {
@@ -485,15 +661,62 @@
         el.innerHTML = dict[key];
       }
     });
+    document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
+      const key = el.getAttribute("data-i18n-placeholder");
+      if (dict[key]) el.placeholder = dict[key];
+    });
     renderRepositories();
+    updateUsosPreview();
+    renderLiveStatus();
+    if (bfCodeEl) executeBrainfuck(bfCodeEl.value);
   }
 
-  langBtn.addEventListener("click", () => {
-    applyLanguage(currentLang === "en" ? "pl" : "en");
+  // Look up a translated string, filling {placeholders} from vars
+  function t(key, vars = {}) {
+    const dict = I18N[currentLang] || I18N.en;
+    const text = dict[key] || I18N.en[key] || key;
+    return text.replace(/\{(\w+)\}/g, (_, name) => vars[name] ?? "");
+  }
+
+  langButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const lang = btn.getAttribute("data-lang");
+      try {
+        localStorage.setItem("a0w_lang", lang);
+      } catch (_) {
+        // Storage blocked: the choice just lasts for this visit
+      }
+      applyLanguage(lang);
+    });
   });
 
   // --------------------------------------------------------------------------
-  // 4. AzamiOS Subsystem Tabs & Interactive Shell Simulator
+  // 3b. Projects segmented control — one project visible at a time
+  // --------------------------------------------------------------------------
+  const projectTabs = [...document.querySelectorAll(".project-tab")];
+
+  function selectProject(tab, moveFocus = false) {
+    projectTabs.forEach((other) => {
+      const selected = other === tab;
+      other.setAttribute("aria-selected", String(selected));
+      other.tabIndex = selected ? 0 : -1;
+      document.getElementById(other.getAttribute("aria-controls")).hidden = !selected;
+    });
+    if (moveFocus) tab.focus();
+  }
+
+  projectTabs.forEach((tab, i) => {
+    tab.addEventListener("click", () => selectProject(tab));
+    tab.addEventListener("keydown", (e) => {
+      const step = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
+      if (!step) return;
+      e.preventDefault();
+      selectProject(projectTabs[(i + step + projectTabs.length) % projectTabs.length], true);
+    });
+  });
+
+  // --------------------------------------------------------------------------
+  // 4. AzamiOS Subsystem Tabs
   // --------------------------------------------------------------------------
   const tabButtons = document.querySelectorAll(".tab-btn");
   const tabPanels = document.querySelectorAll(".subsystem-panel");
@@ -512,112 +735,6 @@
     });
   });
 
-  const terminalOutput = document.getElementById("azami-terminal-output");
-  const terminalForm = document.getElementById("azami-terminal-form");
-  const terminalInput = document.getElementById("azami-cmd-input");
-
-  const AZAMI_COMMANDS = {
-    "uname -a": `AzamiOS azamios 64-bit x86_64 Long-Mode #1 SMP PREEMPT_DYNAMIC Limine-UEFI/BIOS x86_64 AzamiOS/Linux-ABI`,
-    "cat /proc/cpuinfo": `processor       : 0
-vendor_id       : AuthenticAMD / GenuineIntel (x86_64)
-model name      : AzamiOS 64-Bit Long Mode Virtual CPU
-flags           : fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 syscall nx rdtscp lm constant_tsc rep_good nopl xtopology nonstop_tsc cpuid pni pclmulqdq ssse3 cx16 sse4_1 sse4_2 x2apic popcnt tsc_deadline_timer aes xsave avx rdrand hypervisor lahf_lm abm 3dnowprefetch fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt xsaveopt xsavec xsaves umip pku waitpkg
-azami_hwaccel   : smep smap umip pku nx fsgsbase pcid xsavec sse42_crc32c popcnt_pmm tsc_vdso
-azami_pmu       : architectural_pmu (perf_event_open enabled)`,
-    "ls -f /": `bin/   dev/   etc/   home/  mnt/   proc/  sbin/  sys/   tmp/   usr/   var/`,
-    "ls -la /": `drwxr-xr-x  12 root root  4096 Oct 12 18:15 .
-drwxr-xr-x   2 root root  4096 Oct 12 18:15 bin      (sh -> bash 5.2, ls, cat, grep, awk, sed, tar, find...)
-drwxr-xr-x   2 root root  4096 Oct 12 18:15 sbin     (init, dhcpcd, ifconfig, ping, reboot, shutdown)
-drwxr-xr-x   5 root root  4096 Oct 12 18:15 usr      (bin/azwm, TinyCC, BusyBox 401 applets, X11, libc)
-drwxr-xr-x   3 root root  4096 Oct 12 18:15 etc      (passwd, group, fstab, profile, os-release)
-drwxr-xr-x   2 root root     0 Oct 12 18:15 dev      (hda, sda, vda, fd0, tty, null, random)
-dr-xr-xr-x   2 root root     0 Oct 12 18:15 proc     (cpuinfo, cmdline, meminfo, self/)
-dr-xr-xr-x   2 root root     0 Oct 12 18:15 sys      (kernel hardware & driver attributes)
-drwxr-xr-x   3 root root  4096 Oct 12 18:15 home     (home/azami/)`,
-    "pkg list": `Installed & Ported Packages (tools/linux/ports):
-  [core]      bash-5.2          GNU Bash system shell (/bin/sh)
-  [core]      busybox-1.36.1    401 static applets linked against musl 1.2.5
-  [devel]     tcc + gmake       On-device Tiny C Compiler & GNU Make toolchain
-  [lang]      lua / micropython Scripting runtimes
-  [data]      sqlite3 / jq      Embedded SQL database & JSON processor
-  [net]       curl / httpd / nc HTTP/HTTPS client, web server & netcat
-  [editor]    nano / less / tree Console editors & file inspection
-  [gui]       azwm + x11-apps   Azami Window Manager, terminal, sysmon, xclock, xeyes`,
-    "make linux-test": `[vm] Booting headless QEMU with Linux-ABI conformance probe as PID 1...
-[abi] Checking x86_64 syscall entry, ELF64 auxv, TLS (FSGSBASE), mmap/munmap... PASS
-[abi] Checking epoll_create1/epoll_ctl/epoll_wait, pipe2, dup3, openat2...      PASS
-[abi] Checking signals (rt_sigaction, SIGSTOP/SIGCONT, wait4 WUNTRACED)...     PASS
-[abi] Checking futex / futex2, ptrace(TRACEME/PEEK/POKE), clock_gettime vDSO... PASS
-Result: 82 / 82 Linux x86_64 ABI checks passed (0 failures).`,
-    "lsmod": `Loaded Kernel Drivers (HAL / PCI / VirtIO):
-  storage   : ata_ide, floppy_dma, virtio_blk, virtio_9p
-  network   : e1000, e100, rtl8139, rtl8169_gbe, pcnet, vmxnet3, virtio_net
-  usb_input : xhci_hcd (USB 3.x), usb_hid (kbd/mouse/tablet), ps2, virtio_input
-  display   : virtio_gpu, bga_display, fb_drm
-  audio     : intel_hda, ac97, es1370, mpu401_midi, pcspkr
-  fs        : ext2, fat32, procfs, sysfs, devfs, devpts, pipefs, tarfs`,
-    "help": `Available commands in this interactive AzamiOS preview:
-  uname -a          Print kernel & architecture version
-  cat /proc/cpuinfo Inspect probed CPUID extensions, hwaccel & PMU status
-  ls -la /          Inspect Unix Filesystem Hierarchy Standard (FHS) root
-  pkg list          List ported software packages (Bash 5.2, TinyCC, BusyBox, etc.)
-  make linux-test   Run the 82-check musl Linux x86_64 syscall ABI probe
-  lsmod             List storage, network, USB 3.x, audio & VFS kernel drivers
-  clear             Clear terminal output`
-  };
-
-  function runTerminalCommand(rawCmd) {
-    const cmd = rawCmd.trim();
-    if (!cmd) return;
-    if (cmd.toLowerCase() === "clear") {
-      terminalOutput.innerHTML = "";
-      return;
-    }
-
-    const key = cmd.toLowerCase();
-    let response = AZAMI_COMMANDS[key];
-    if (!response) {
-      if (key === "ls -f /" || key === "ls /" || key === "ls") {
-        response = AZAMI_COMMANDS["ls -la /"];
-      } else if (key === "whoami") {
-        response = "root (uid=0, gid=0) on AzamiOS x86_64";
-      } else {
-        response = `bash: ${cmd}: command not recognized in preview. Type 'help' to see available commands.`;
-      }
-    }
-
-    const entry = document.createElement("div");
-    const echo = document.createElement("div");
-    echo.className = "cmd-echo";
-    echo.textContent = `root@azamios:~# ${cmd}`;
-
-    const res = document.createElement("span");
-    res.className = "cmd-res";
-    res.textContent = response;
-
-    entry.appendChild(echo);
-    entry.appendChild(res);
-    terminalOutput.appendChild(entry);
-    terminalOutput.scrollTop = terminalOutput.scrollHeight;
-  }
-
-  // Initial terminal welcome log
-  runTerminalCommand("uname -a");
-  runTerminalCommand("make linux-test");
-
-  document.querySelectorAll(".preset-chip").forEach((chip) => {
-    chip.addEventListener("click", () => {
-      const cmd = chip.getAttribute("data-cmd");
-      runTerminalCommand(cmd);
-    });
-  });
-
-  terminalForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const val = terminalInput.value;
-    terminalInput.value = "";
-    runTerminalCommand(val);
-  });
 
   // --------------------------------------------------------------------------
   // 5. USOS Checker Screenshot Stage Switcher
@@ -632,50 +749,87 @@ Result: 82 / 82 Linux x86_64 ABI checks passed (0 failures).`,
   const USOS_SCREENS = {
     "desktop-dark": {
       src: "assets/screenshots/desktop-dark.png",
-      alt: "USOS Checker Desktop in dark theme showing demo data",
-      caption: "Desktop (Windows / Linux) — Dark Theme · Today view with live schedule & recent changes"
+      alt: {
+        en: "USOS Checker Desktop in dark theme showing demo data",
+        pl: "USOS Checker na komputerze w ciemnym motywie z danymi demo"
+      },
+      caption: {
+        en: "Desktop (Windows / Linux) — Dark Theme · Today view with live schedule & recent changes",
+        pl: "Komputer (Windows / Linux) — ciemny motyw · widok Dzisiaj z bieżącym planem i ostatnimi zmianami"
+      }
     },
     "desktop-light": {
       src: "assets/screenshots/desktop-light.png",
-      alt: "USOS Checker Desktop in light theme showing demo data",
-      caption: "Desktop (Windows / Linux) — Light Theme · Neutral cards & cyan accent"
+      alt: {
+        en: "USOS Checker Desktop in light theme showing demo data",
+        pl: "USOS Checker na komputerze w jasnym motywie z danymi demo"
+      },
+      caption: {
+        en: "Desktop (Windows / Linux) — Light Theme · Neutral cards & cyan accent",
+        pl: "Komputer (Windows / Linux) — jasny motyw · neutralne karty i turkusowy akcent"
+      }
     },
     "android-dark": {
       src: "assets/screenshots/android-dark.png",
-      alt: "USOS Checker Android in OLED dark theme",
-      caption: "Android 12+ — OLED Dark Theme · Today view, class countdown & bottom navigation"
+      alt: {
+        en: "USOS Checker Android in OLED dark theme",
+        pl: "USOS Checker na Androidzie w ciemnym motywie OLED"
+      },
+      caption: {
+        en: "Android 12+ — OLED Dark Theme · Today view, class countdown & bottom navigation",
+        pl: "Android 12+ — ciemny motyw OLED · widok Dzisiaj, odliczanie do zajęć i dolna nawigacja"
+      }
     },
     "android-light": {
       src: "assets/screenshots/android-light.png",
-      alt: "USOS Checker Android in light theme",
-      caption: "Android 12+ — Light Theme · Adaptive Material interface"
+      alt: {
+        en: "USOS Checker Android in light theme",
+        pl: "USOS Checker na Androidzie w jasnym motywie"
+      },
+      caption: {
+        en: "Android 12+ — Light Theme · Adaptive Material interface",
+        pl: "Android 12+ — jasny motyw · adaptacyjny interfejs Material"
+      }
     },
     "onboarding-dark": {
       src: "assets/screenshots/welcome.png",
-      alt: "USOS Checker first-run API setup screen",
-      caption: "First-Run Onboarding — Automatic personal USOSapps API key provisioning"
+      alt: {
+        en: "USOS Checker first-run API setup screen",
+        pl: "Ekran konfiguracji API przy pierwszym uruchomieniu USOS Checker"
+      },
+      caption: {
+        en: "First-Run Onboarding — Automatic personal USOSapps API key provisioning",
+        pl: "Pierwsze uruchomienie — automatyczne utworzenie osobistego klucza API w USOSapps"
+      }
     },
     "onboarding-light": {
       src: "assets/screenshots/welcome-keys.png",
-      alt: "USOS Checker manual Consumer Key and Secret guide",
-      caption: "API Key Guide — Instructions for Consumer Key & Consumer Secret stored in Android Keystore"
+      alt: {
+        en: "USOS Checker manual Consumer Key and Secret guide",
+        pl: "Instrukcja ręcznego wpisania Consumer Key i Consumer Secret w USOS Checker"
+      },
+      caption: {
+        en: "API Key Guide — Instructions for Consumer Key & Consumer Secret stored in Android Keystore",
+        pl: "Instrukcja klucza API — jak wpisać Consumer Key i Consumer Secret przechowywane w Android Keystore"
+      }
     }
   };
 
   function updateUsosPreview() {
+    if (!usosImg || !usosCaption || !usosThemeGroup) return;
     const key = `${usosPlatform}-${usosTheme}`;
     const item = USOS_SCREENS[key] || USOS_SCREENS["desktop-dark"];
     usosImg.src = item.src;
-    usosImg.alt = item.alt;
-    usosCaption.textContent = item.caption;
+    usosImg.alt = item.alt[currentLang] || item.alt.en;
+    usosCaption.textContent = item.caption[currentLang] || item.caption.en;
 
     const themeBtns = usosThemeGroup.querySelectorAll(".seg-btn");
     if (usosPlatform === "onboarding") {
-      themeBtns[0].textContent = "Step 1: Auto Key";
-      themeBtns[1].textContent = "Step 2: Key Guide";
+      themeBtns[0].textContent = t("usos_step1");
+      themeBtns[1].textContent = t("usos_step2");
     } else {
-      themeBtns[0].textContent = "Dark (OLED)";
-      themeBtns[1].textContent = "Light";
+      themeBtns[0].textContent = t("usos_theme_dark");
+      themeBtns[1].textContent = t("usos_theme_light");
     }
   }
 
@@ -738,7 +892,7 @@ Result: 82 / 82 Linux x86_64 ABI checks passed (0 failures).`,
       cell.className = "tape-cell" + (i === ptr ? " active" : "");
       const printable = val >= 32 && val <= 126 ? `'${String.fromCharCode(val)}'` : "·";
       cell.innerHTML = `
-        <div class="cell-idx">CELL #${i}</div>
+        <div class="cell-idx">#${i}</div>
         <div class="cell-val">${val}</div>
         <div class="cell-char">${printable}</div>
       `;
@@ -811,32 +965,35 @@ Result: 82 / 82 Linux x86_64 ABI checks passed (0 failures).`,
     }
 
     renderTape(tape, Math.min(ptr, 7));
-    bfStdoutEl.textContent = out || "(empty stdout)";
-    bfStatsEl.textContent = `${ops} ops executed · pointer at cell #${ptr}`;
+    bfStdoutEl.textContent = out || t("bf_empty");
+    bfStatsEl.textContent = t("bf_stats", { ops, ptr });
   }
 
-  bfCodeEl.value = BF_PROGRAMS.azami;
-  executeBrainfuck(BF_PROGRAMS.azami);
-
-  document.getElementById("bf-run-btn").addEventListener("click", () => {
-    executeBrainfuck(bfCodeEl.value);
-  });
-
-  document.getElementById("bf-load-azami").addEventListener("click", () => {
+  // Interpreter only exists on projects.html
+  if (bfCodeEl && bfTapeEl && bfStdoutEl && bfStatsEl) {
     bfCodeEl.value = BF_PROGRAMS.azami;
     executeBrainfuck(BF_PROGRAMS.azami);
-  });
 
-  document.getElementById("bf-load-hello").addEventListener("click", () => {
-    bfCodeEl.value = BF_PROGRAMS.hello;
-    executeBrainfuck(BF_PROGRAMS.hello);
-  });
+    document.getElementById("bf-run-btn").addEventListener("click", () => {
+      executeBrainfuck(bfCodeEl.value);
+    });
 
-  document.getElementById("bf-reset-btn").addEventListener("click", () => {
-    renderTape(new Uint8Array(8), 0);
-    bfStdoutEl.textContent = "";
-    bfStatsEl.textContent = "Tape reset (0 ops)";
-  });
+    document.getElementById("bf-load-azami").addEventListener("click", () => {
+      bfCodeEl.value = BF_PROGRAMS.azami;
+      executeBrainfuck(BF_PROGRAMS.azami);
+    });
+
+    document.getElementById("bf-load-hello").addEventListener("click", () => {
+      bfCodeEl.value = BF_PROGRAMS.hello;
+      executeBrainfuck(BF_PROGRAMS.hello);
+    });
+
+    document.getElementById("bf-reset-btn").addEventListener("click", () => {
+      renderTape(new Uint8Array(8), 0);
+      bfStdoutEl.textContent = "";
+      bfStatsEl.textContent = t("bf_reset_stats");
+    });
+  }
 
   // --------------------------------------------------------------------------
   // 7. Repository Explorer Rendering, Filtering, Sorting & Modal
@@ -866,17 +1023,76 @@ Result: 82 / 82 Linux x86_64 ABI checks passed (0 failures).`,
     modal.setAttribute("hidden", "");
   }
 
-  modalCloseBtn.addEventListener("click", closeRepoModal);
-  modal.addEventListener("click", (e) => {
-    if (e.target === modal) closeRepoModal();
-  });
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && !modal.hasAttribute("hidden")) {
-      closeRepoModal();
-    }
-  });
+  // Repository explorer and modal only exist on repositories.html
+  if (modal && modalCloseBtn) {
+    modalCloseBtn.addEventListener("click", closeRepoModal);
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) closeRepoModal();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !modal.hasAttribute("hidden")) {
+        closeRepoModal();
+      }
+    });
+  }
+
+  // Polish versions of each repository's highlight bullets
+  const HIGHLIGHTS_PL = {
+    AzamiOS: [
+      "x86_64 Long Mode (PML4) · bootloader Limine BIOS/UEFI",
+      "Uruchamia niezmodyfikowane statyczne binaria Linuksa ELF64 (musl + BusyBox + Bash 5.2)",
+      "Ponad 40 nagłówków POSIX libc · ptrace(2), perf_event_open(2), vDSO TSC ~20 ns",
+      "VirtIO, Intel e1000, RTL8139/8169, xHCI USB 3.x, Intel HDA, azwm + X11"
+    ],
+    "usoschecker-public": [
+      "Android 12+ (APK), Windows (MSI/ZIP) i Linux (DEB) — 24 opublikowane wydania",
+      "Panel Dzisiaj, wykrywanie kolizji w planie i eksport kalendarza .ics",
+      "Synchronizacja zadań, ocen i wiadomości z Platona + historia zmian przed/po",
+      "Bezpieczeństwo bez wspólnego sekretu (Android Keystore) · języki PL / EN / UK"
+    ],
+    JakOS: [
+      "32-bitowy tryb chroniony: GDT, IDT, ISR oraz kontrolery PIT, RTC i DMA",
+      "Własny sterownik ekranu VGA, klawiatura PS/2, PC speaker i port szeregowy",
+      "Stronicowanie, sterta kmalloc, VFS + initrd, sterownik dysku ATA i powłoka jądra"
+    ],
+    Hana_brainfuck: [
+      "Obiektowy rdzeń interpretera w C++ (Hana.cpp / Hana.h)",
+      "Zawiera brainfuck_programs/AzamiOS.bf, który wypisuje „AzamiOS”",
+      "Licencja Apache-2.0, projekt dla Visual Studio"
+    ],
+    yatka: [
+      "Tryby Marathon, Sprint (40 linii) i Ultra (3 minuty)",
+      "7 generatorów losowania: naiwny, NES Nintendo, 7-bag, 8-bag, 14-bag, TGM98, TGM3",
+      "Własne skórki i muzyka tracker/MOD/MP3/OGG na SDL 1.2"
+    ],
+    Snake: [
+      "Modułowa architektura C++: Game, World, Window, Snake, SnakeFood, TextBox",
+      "Własne wykrywanie kolizji na siatce i wynik wyświetlany czcionką TrueType"
+    ],
+    Wei_Matrix_calc: [
+      "Interaktywny interfejs XAML do wpisywania macierzy oddzielanych spacjami",
+      "Działania na macierzach w C# (.NET WPF)"
+    ],
+    Banking_System_Project: [
+      "Zakładanie kont, wpłaty, wypłaty i sprawdzanie salda",
+      "Zapis rekordów binarnie przez fstream w C++"
+    ],
+    KnightCTFWriteups: [
+      "Zadania: FileD, Follow (extract_text.py), Hows_the_Shark, The_Lost_Flag",
+      "Analiza pakietów sieciowych, steganografia i automatyczne wydobywanie flag"
+    ],
+    "password-generator": [
+      "Bez zewnętrznych zależności · licencja MIT",
+      "Losowanie znaków z wybranej puli"
+    ],
+    alsq: [
+      "Obsługa komend Discorda oparta na zdarzeniach, w Pythonie",
+      "Powstał w październiku 2019"
+    ]
+  };
 
   function renderRepositories() {
+    if (!repoGrid) return;
     const dict = I18N[currentLang] || I18N.en;
     const q = currentSearch.trim().toLowerCase();
 
@@ -905,7 +1121,8 @@ Result: 82 / 82 Linux x86_64 ABI checks passed (0 failures).`,
         ? `Release ${repo.releaseTag}`
         : repo.license;
 
-      const highlightsHtml = repo.highlights
+      const highlights = (currentLang === "pl" && HIGHLIGHTS_PL[repo.name]) || repo.highlights;
+      const highlightsHtml = highlights
         .map((h) => `<li>${h}</li>`)
         .join("");
 
@@ -964,15 +1181,19 @@ Result: 82 / 82 Linux x86_64 ABI checks passed (0 failures).`,
     });
   });
 
-  searchInput.addEventListener("input", (e) => {
-    currentSearch = e.target.value;
-    renderRepositories();
-  });
+  if (searchInput) {
+    searchInput.addEventListener("input", (e) => {
+      currentSearch = e.target.value;
+      renderRepositories();
+    });
+  }
 
-  sortSelect.addEventListener("change", (e) => {
-    currentSort = e.target.value;
-    renderRepositories();
-  });
+  if (sortSelect) {
+    sortSelect.addEventListener("change", (e) => {
+      currentSort = e.target.value;
+      renderRepositories();
+    });
+  }
 
   // Initial render
   applyLanguage(currentLang);
@@ -983,8 +1204,13 @@ Result: 82 / 82 Linux x86_64 ABI checks passed (0 failures).`,
   async function syncWithGitHubApi() {
     try {
       const res = await fetch("https://api.github.com/users/a0w-svg/repos?per_page=100");
-      if (!res.ok) return;
+      if (!res.ok) throw new Error(`GitHub API ${res.status}`);
       const liveRepos = await res.json();
+
+      // Most recent push across all public repos drives the hero status
+      const lastPush = liveRepos.map((r) => r.pushed_at).filter(Boolean).sort().pop();
+      liveState = lastPush ? { state: "live", lastPush } : { state: "offline", lastPush: null };
+      renderLiveStatus();
 
       let updatedCount = 0;
       liveRepos.forEach((live) => {
@@ -1000,10 +1226,6 @@ Result: 82 / 82 Linux x86_64 ABI checks passed (0 failures).`,
 
       if (updatedCount > 0) {
         renderRepositories();
-        const footerStatus = document.getElementById("footer-api-status");
-        if (footerStatus) {
-          footerStatus.textContent = `Live GitHub API synced (${liveRepos.length} public repos verified)`;
-        }
       }
 
       // Check latest release of usoschecker-public
@@ -1014,12 +1236,17 @@ Result: 82 / 82 Linux x86_64 ABI checks passed (0 failures).`,
           const usos = PUBLIC_REPOS.find((r) => r.name === "usoschecker-public");
           if (usos) usos.releaseTag = rel.tag_name;
           const btnText = document.getElementById("usos-release-btn-text");
-          if (btnText) btnText.textContent = `Download Latest (${rel.tag_name})`;
+          if (btnText) btnText.textContent = rel.tag_name;
           renderRepositories();
         }
       }
     } catch (_) {
-      // Offline or rate-limited: preloaded repository telemetry remains intact
+      // Offline or rate-limited: the built-in repository data stays, and the
+      // status says so instead of pretending to be live.
+      if (liveState.state !== "live") {
+        liveState = { state: "offline", lastPush: null };
+        renderLiveStatus();
+      }
     }
   }
 
