@@ -1,20 +1,20 @@
-# a0w-svg (a0aRd) — GitHub Pages Portfolio (`a0w-svg.github.io`)
+# a0w-svg (a0aRd): GitHub Pages Portfolio (`a0w-svg.github.io`)
 
-Interactive portfolio website built from the public repositories of **[@a0w-svg](https://github.com/a0w-svg)**:
+Portfolio website built from the public repositories of [@a0w-svg](https://github.com/a0w-svg):
 
-- **[AzamiOS](https://github.com/a0w-svg/AzamiOS)** — 64-bit `x86_64` operating system with Linux syscall ABI compatibility, custom POSIX `libc`, VirtIO/xHCI/e1000 drivers, and the `azwm` compositing window manager.
-- **[USOS Checker (`usoschecker-public`)](https://github.com/a0w-svg/usoschecker-public)** — Cross-platform USOS & Platon companion app for Vistula University students (Android 12+, Windows x64, Linux) in Kotlin.
-- **[JakOS](https://github.com/a0w-svg/JakOS)** — 32-bit `x86` operating system and `Rose-lk` kernel in C & Assembly.
-- **[Hana_brainfuck](https://github.com/a0w-svg/Hana_brainfuck)** — C++ Brainfuck interpreter with interactive browser execution of `brainfuck_programs/AzamiOS.bf` and `hello.bf`.
-- **Complete 11-Repository Index** — Includes `yatka`, `Snake`, `Wei_Matrix_calc`, `Banking_System_Project`, `KnightCTFWriteups`, `password-generator`, and `alsq`, with live GitHub API synchronization.
+- [AzamiOS](https://github.com/a0w-svg/AzamiOS): 64-bit `x86_64` operating system with Linux syscall ABI compatibility, custom POSIX `libc`, VirtIO/xHCI/e1000 drivers, and the `azwm` compositing window manager.
+- [USOS Checker (`usoschecker-public`)](https://github.com/a0w-svg/usoschecker-public): cross-platform USOS & Platon companion app for Vistula University students (Android 12+, Windows x64, Linux) in Kotlin.
+- [JakOS](https://github.com/a0w-svg/JakOS): 32-bit `x86` operating system and `Rose-lk` kernel in C & Assembly.
+- [Hana_brainfuck](https://github.com/a0w-svg/Hana_brainfuck): C++ Brainfuck interpreter with interactive browser execution of `brainfuck_programs/AzamiOS.bf` and `hello.bf`.
+- Complete 11-Repository Index: includes `yatka`, `Snake`, `Wei_Matrix_calc`, `Banking_System_Project`, `KnightCTFWriteups`, `password-generator`, and `alsq`, with live GitHub API synchronization.
 
 ## Features
 
-- **Interactive `AzamiOS` Shell Simulator**: Run `uname -a`, `cat /proc/cpuinfo`, `ls -la /`, `pkg list`, `make linux-test`, and `lsmod` directly in the browser.
-- **Interactive `USOS Checker` Preview Stage**: Switch between **Desktop**, **Android**, and **API Setup** views in both **Dark (OLED)** and **Light** themes using real app screenshots.
-- **Interactive `Hana_brainfuck` Memory-Tape Sandbox**: Executes `AzamiOS.bf` and `hello.bf` on an 8-cell visual tape.
-- **Bilingual (`EN` / `PL`) & Theme Toggle (`OLED Dark` / `Light`)**: Full keyboard navigation and `prefers-reduced-motion` support.
-- **Zero Build Step**: Pure static HTML/CSS/JS with `.nojekyll` ready for instant GitHub Pages deployment.
+- `AzamiOS` Subsystem Inspector: browse Kernel & Linux ABI, Drivers & Net, Custom libc & Ports, and `azwm` GUI & VFS details.
+- `USOS Checker` Preview Stage: switch between Desktop, Android, and API Setup views in Dark (OLED) and Light themes using real app screenshots.
+- `Hana_brainfuck` Memory-Tape Sandbox: runs `AzamiOS.bf` and `hello.bf` directly in the browser on an 8-cell visual tape.
+- Bilingual (`EN` / `PL`) & Theme Switch (`Auto` / `Dark` / `Light`): keyboard navigation and `prefers-reduced-motion` support.
+- Zero Build Step: static HTML, CSS, and JS with `.nojekyll` for GitHub Pages deployment.
 
 ## Preview Locally
 
@@ -36,4 +36,3 @@ git commit -m "Initial portfolio website for a0w-svg"
 git branch -M main
 gh repo create a0w-svg/a0w-svg.github.io --public --source=. --remote=origin --push
 ```
-

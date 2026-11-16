@@ -1,38 +1,53 @@
 /* ==========================================================================
-   a0w-svg (a0aRd) — Interactive Portfolio Engine (app.js)
-   - Preloaded telemetry for all 11 public repositories + live GitHub API sync
-   - AzamiOS x86_64 interactive shell inspector
+   a0w-svg (a0aRd) · Portfolio Engine (app.js)
+   - Curated baseline + automatic live GitHub API sync (profile, repos, languages, releases, trees)
+   - LocalStorage cache to keep loads instant and stay within unauthenticated rate limits
+   - AzamiOS subsystem inspector tabs
    - USOS Checker platform & theme screenshot switcher
    - Hana_brainfuck live memory-tape interpreter (AzamiOS.bf & hello.bf)
-   - Bilingual EN / PL localization & OLED Dark / Light theme toggle
+   - Bilingual EN / PL localization & Auto / Dark / Light theme switch
    ========================================================================== */
 
 (function () {
   "use strict";
 
+  const GITHUB_USER = "a0w-svg";
+  const GH_CACHE_KEY = "a0w_gh_sync_v1";
+  const GH_CACHE_TTL_MS = 10 * 60 * 1000;
+
   // --------------------------------------------------------------------------
-  // 1. Complete Public Repositories Dataset (a0w-svg)
+  // 1. Curated Repository Baseline & Enrichment (Fallback + Annotated Trees)
   // --------------------------------------------------------------------------
-  const PUBLIC_REPOS = [
+  const CURATED_REPOS = [
     {
       name: "AzamiOS",
       url: "https://github.com/a0w-svg/AzamiOS",
       category: "systems",
       language: "C",
-      langColor: "#38bdf8",
       license: "GPL-2.0 / BSD-3",
       fork: false,
       stars: 1,
       sizeBytes: 9132284,
       sizeLabel: "9.13 MB (8.45 MB C)",
+      langBytes: {
+        C: 8448982,
+        Python: 303357,
+        Makefile: 209095,
+        Shell: 73539,
+        Assembly: 62200,
+        "C++": 20678,
+        "Linker Script": 12584,
+        Dockerfile: 1471,
+        GDB: 378
+      },
       createdAt: "2021-08-05",
       updatedAt: "2026-10-12",
       desc: {
-        en: "64-bit x86_64 Operating System featuring a Unix FHS hierarchy, unmodified Linux x86_64 syscall ABI, custom POSIX libc, VirtIO/xHCI/e1000 drivers, and the azwm compositing desktop.",
+        en: "64-bit x86_64 Operating System with a Unix FHS hierarchy, unmodified Linux x86_64 syscall ABI, custom POSIX libc, VirtIO/xHCI/e1000 drivers, and the azwm compositing\u00A0desktop.",
         pl: "64-bitowy system operacyjny x86_64 z hierarchią FHS, kompatybilnością z ABI wywołań systemowych Linuksa, własną biblioteką POSIX libc, sterownikami VirtIO/xHCI/e1000 oraz środowiskiem graficznym azwm."
       },
       highlights: [
-        "x86_64 Long Mode (PML4) · Limine BIOS/UEFI bootloader",
+        "x86_64 Long Mode (PML4) · Limine BIOS/UEFI\u00A0bootloader",
         "Runs unmodified static Linux ELF64 binaries (musl + BusyBox + Bash 5.2)",
         "40+ POSIX libc headers · ptrace(2), perf_event_open(2), ~20ns TSC vDSO",
         "VirtIO, Intel e1000, RTL8139/8169, xHCI USB 3.x, Intel HDA, azwm + X11"
@@ -57,17 +72,24 @@
       releaseTag: "v1.10.0",
       category: "apps",
       language: "Kotlin",
-      langColor: "#a855f7",
       license: "MIT",
       fork: false,
       stars: 0,
       sizeBytes: 2400803,
       sizeLabel: "2.40 MB (2.29 MB Kotlin)",
+      langBytes: {
+        Kotlin: 2294628,
+        Python: 59298,
+        HTML: 31482,
+        Java: 8095,
+        PowerShell: 7070,
+        Shell: 230
+      },
       createdAt: "2026-10-17",
       updatedAt: "2026-11-10",
       desc: {
-        en: "Unofficial USOS & Platon client for Vistula University on Android 12+, Windows x64, and Linux — timetable, grades, diff-based change history, GPA calculator, and notifications.",
-        pl: "Nieoficjalny klient USOS i Platon dla studentów Vistuli na Androida 12+, Windows x64 oraz Linuksa — plan zajęć, oceny, historia zmian (przed/po), kalkulator GPA i powiadomienia."
+        en: "Unofficial USOS & Platon client for Vistula University on Android 12+, Windows x64, and Linux: timetable, grades, diff-based change history, GPA calculator, and notifications.",
+        pl: "Nieoficjalny klient USOS i Platon dla studentów Vistuli na Androida 12+, Windows x64 oraz Linuksa: plan zajęć, oceny, historia zmian (przed/po), kalkulator GPA i powiadomienia."
       },
       highlights: [
         "Android 12+ APK, Windows MSI/ZIP & Linux DEB (24 published releases)",
@@ -88,12 +110,12 @@
       url: "https://github.com/a0w-svg/JakOS",
       category: "systems",
       language: "C",
-      langColor: "#38bdf8",
       license: "MIT",
       fork: false,
       stars: 0,
       sizeBytes: 111614,
       sizeLabel: "111.6 KB (C & x86 ASM)",
+      langBytes: { C: 100000, Assembly: 11614 },
       createdAt: "2020-03-08",
       updatedAt: "2021-08-18",
       desc: {
@@ -103,7 +125,7 @@
       highlights: [
         "32-bit Protected Mode GDT, IDT, ISR, PIT, RTC & DMA controllers",
         "Custom VGA screen driver, PS/2 keyboard, PC speaker & serial port",
-        "Paging, kmalloc heap, VFS + initrd, ATA disk driver & kernel shell"
+        "Paging, kmalloc heap, VFS + initrd, ATA disk driver & kernel\u00A0shell"
       ],
       tree: `JakOS/
 ├── boot/              # Multiboot header & 32-bit x86 entry (boot.s)
@@ -120,12 +142,12 @@
       url: "https://github.com/a0w-svg/Hana_brainfuck",
       category: "systems",
       language: "C++",
-      langColor: "#f34b7d",
       license: "Apache-2.0",
       fork: false,
       stars: 0,
       sizeBytes: 3613,
       sizeLabel: "3.6 KB (C++ & Brainfuck)",
+      langBytes: { "C++": 3613 },
       createdAt: "2021-08-25",
       updatedAt: "2025-12-20",
       desc: {
@@ -135,7 +157,7 @@
       highlights: [
         "Object-oriented C++ interpreter core (Hana.cpp / Hana.h)",
         "Includes brainfuck_programs/AzamiOS.bf printing 'AzamiOS'",
-        "Apache-2.0 licensed with Visual Studio solution"
+        "Apache-2.0 licensed with Visual\u00A0Studio\u00A0solution"
       ],
       tree: `Hana_brainfuck/
 ├── Hana_brainfuck/
@@ -151,20 +173,20 @@
       url: "https://github.com/a0w-svg/yatka",
       category: "games",
       language: "C",
-      langColor: "#38bdf8",
       license: "GPL-2.0",
       fork: true,
       stars: 0,
       sizeBytes: 121574,
       sizeLabel: "121.6 KB (C & SDL 1.2)",
+      langBytes: { C: 121574 },
       createdAt: "2023-02-12",
       updatedAt: "2023-02-08",
       desc: {
-        en: "Yet Another Tetris Klone In Action — lightweight C & SDL 1.2 implementation with Super Rotation System (SRS) and 7 randomizers for handheld consoles.",
-        pl: "Yet Another Tetris Klone In Action — lekka implementacja w C i SDL 1.2 z systemem SRS oraz 7 generatorami klocków na konsole przenośne."
+        en: "Yet Another Tetris Klone In Action: lightweight C & SDL 1.2 implementation with Super Rotation System (SRS) and 7 randomizers for handheld consoles.",
+        pl: "Yet Another Tetris Klone In Action: lekka implementacja w C i SDL 1.2 z systemem SRS oraz 7 generatorami klocków na konsole przenośne."
       },
       highlights: [
-        "Marathon, Sprint (40 lines) & Ultra (3-min) modes",
+        "Marathon, Sprint (40 lines) & Ultra\u00A0(3-min)\u00A0modes",
         "7 randomizers: naive, NES Nintendo, 7-bag, 8-bag, 14-bag, TGM98, TGM3",
         "Custom skins & tracker/MOD/MP3/OGG music support on SDL 1.2"
       ],
@@ -178,16 +200,16 @@
       url: "https://github.com/a0w-svg/Snake",
       category: "games",
       language: "C++",
-      langColor: "#f34b7d",
       license: "Source Available",
       fork: false,
       stars: 0,
       sizeBytes: 15105,
       sizeLabel: "15.1 KB (C++)",
+      langBytes: { "C++": 15105 },
       createdAt: "2022-12-06",
       updatedAt: "2022-12-06",
       desc: {
-        en: "Object-oriented 2D Snake game written in C++ featuring custom window management, collision world, food spawner, and HUD text rendering.",
+        en: "Object-oriented 2D Snake game written in C++ with custom window management, collision world, food spawner, and HUD text\u00A0rendering.",
         pl: "Obiektowa gra Snake 2D napisana w C++ z własną obsługą okna, świata kolizji, generatorem jedzenia oraz renderowaniem tekstu HUD."
       },
       highlights: [
@@ -208,12 +230,12 @@
       url: "https://github.com/a0w-svg/Wei_Matrix_calc",
       category: "apps",
       language: "C#",
-      langColor: "#22c55e",
       license: "MIT",
       fork: false,
       stars: 0,
       sizeBytes: 5662,
       sizeLabel: "5.7 KB (C# WPF)",
+      langBytes: { "C#": 5662 },
       createdAt: "2022-02-01",
       updatedAt: "2022-02-01",
       desc: {
@@ -222,7 +244,7 @@
       },
       highlights: [
         "Interactive XAML desktop interface for space-delimited matrix input",
-        "Matrix arithmetic operations in C# (.NET WPF)"
+        "Matrix arithmetic operations in C# (.NET\u00A0WPF)"
       ],
       tree: `Wei_Matrix_calc/
 ├── Matrix_calc.sln
@@ -236,12 +258,12 @@
       url: "https://github.com/a0w-svg/Banking_System_Project",
       category: "apps",
       language: "C++",
-      langColor: "#f34b7d",
       license: "MIT",
       fork: false,
       stars: 0,
       sizeBytes: 4867,
       sizeLabel: "4.9 KB (C++)",
+      langBytes: { "C++": 4867 },
       createdAt: "2021-11-14",
       updatedAt: "2021-11-14",
       desc: {
@@ -262,12 +284,12 @@
       url: "https://github.com/a0w-svg/KnightCTFWriteups",
       category: "security",
       language: "Python",
-      langColor: "#eab308",
       license: "Writeups",
       fork: false,
       stars: 0,
       sizeBytes: 208,
       sizeLabel: "CTF Writeups + Python",
+      langBytes: { Python: 208 },
       createdAt: "2022-01-22",
       updatedAt: "2022-01-23",
       desc: {
@@ -289,12 +311,12 @@
       url: "https://github.com/a0w-svg/password-generator",
       category: "security",
       language: "Python",
-      langColor: "#eab308",
       license: "MIT",
       fork: false,
       stars: 0,
       sizeBytes: 813,
       sizeLabel: "813 B (Python)",
+      langBytes: { Python: 813 },
       createdAt: "2020-12-28",
       updatedAt: "2021-08-10",
       desc: {
@@ -315,20 +337,20 @@
       url: "https://github.com/a0w-svg/alsq",
       category: "security",
       language: "Python",
-      langColor: "#eab308",
       license: "Source Available",
       fork: false,
       stars: 0,
       sizeBytes: 9077,
       sizeLabel: "9.1 KB (Python)",
+      langBytes: { Python: 9077 },
       createdAt: "2019-10-15",
       updatedAt: "2021-08-10",
       desc: {
-        en: "Asynchronous Discord bot written in Python (alsq) — earliest public repository on the a0w-svg profile.",
-        pl: "Asynchroniczny bot na platformę Discord napisany w Pythonie — najstarsze publiczne repozytorium na profilu a0w-svg."
+        en: "Asynchronous Discord bot written in Python (alsq), the earliest public repository on the a0w-svg profile.",
+        pl: "Asynchroniczny bot na platformę Discord napisany w Pythonie, najstarsze publiczne repozytorium na profilu a0w-svg."
       },
       highlights: [
-        "Event-driven Discord command handlers in Python",
+        "Event-driven Discord command handlers in\u00A0Python",
         "Created in October 2019"
       ],
       tree: `alsq/
@@ -337,36 +359,54 @@
     }
   ];
 
+  const CURATED_BY_NAME = new Map(CURATED_REPOS.map((r) => [r.name.toLowerCase(), r]));
+  let reposList = [...CURATED_REPOS];
+  let profileData = null;
+  let usosReleaseCount = 24;
+  let cachedTrees = {};
+
   // --------------------------------------------------------------------------
   // 2. Bilingual Localization Dictionary (EN / PL)
   // --------------------------------------------------------------------------
   const I18N = {
     en: {
       skip_to_content: "Skip to main content",
+      theme_auto: "Auto",
+      theme_dark: "Dark",
+      theme_light: "Light",
+      nav_projects: "Projects",
+      nav_repos: "Repositories",
+      nav_about: "About",
+      nav_contact: "Contact",
       cta_projects: "See projects",
       cta_github: "GitHub profile ↗",
       status_loading: "Checking GitHub…",
       status_live: "Live from GitHub · last push {date}",
       status_offline: "GitHub unavailable · showing saved data",
-      home_projects_eyebrow: "Selected work",
       home_projects_title: "Projects",
-      about_eyebrow: "About",
       about_title: "Systems and application developer from Poland",
-      about_lead: "I write operating systems from bare metal in C and Assembly, and cross-platform apps in Kotlin. I have been publishing my work on GitHub since 2017 — from small Python tools to a 64-bit OS.",
-      contact_eyebrow: "Contact",
+      about_lead: "I write operating systems from bare metal in C and Assembly, and cross-platform apps in Kotlin. I have published my work on GitHub since 2017, from small Python tools to a 64-bit OS.",
       contact_title: "Get in touch",
       contact_lead: "The best way to reach me is GitHub. For questions about a specific project, open an issue in its repository.",
       contact_gh_title: "GitHub profile",
-      contact_gh_desc: "All public repositories, releases and activity.",
-      contact_azami_title: "AzamiOS — issues",
+      contact_gh_desc: "All public repositories, releases and\u00A0activity.",
+      contact_azami_title: "AzamiOS issues",
       contact_azami_desc: "Bug reports and questions about the kernel, drivers and userspace.",
-      contact_usos_title: "USOS Checker — issues",
+      contact_usos_title: "USOS Checker issues",
       contact_usos_desc: "Bug reports and feature ideas for the Android and desktop app.",
-      title_home: "a0w-svg (a0aRd) — Systems &amp; Software Engineering",
-      telemetry_total: "~11.72 MB total",
-      footer_prototype: "USOS Prototype",
-      azami_title: "AzamiOS — 64-Bit x86_64 Operating System",
+      title_home: "a0w-svg (a0aRd) · Systems &amp; Software Engineering",
+      ledger_summary: "11 public repositories · 11.72 MB source · 24 releases · 100+ Linux x86_64 syscalls",
+      telemetry_title: "Public Codebase Distribution (Bytes)",
+      azami_title: "AzamiOS: 64-Bit x86_64 Operating System",
       azami_predecessor: "Predecessor: JakOS (x86-32)",
+      azami_spec1_k: "Architecture",
+      azami_spec1_v: "x86_64 Long Mode (PML4)",
+      azami_spec2_k: "Syscall ABI",
+      azami_spec2_v: "Linux System V AMD64 (82-check probe)",
+      azami_spec3_k: "Userspace",
+      azami_spec3_v: "40+ POSIX libc headers · azwm + X11",
+      azami_spec4_k: "Boot &amp; License",
+      azami_spec4_v: "Limine UEFI/BIOS · GPL-2.0 / BSD-3",
       tab_kernel: "Kernel &amp; Linux ABI",
       tab_drivers: "Drivers &amp; Net",
       tab_libc: "Custom libc &amp; Ports",
@@ -376,7 +416,7 @@
       k_1: "<strong>Memory &amp; Paging:</strong> Physical Memory Manager (PMM), slab <code>kmalloc</code>, 4-level PML4 paging with <code>mmap</code>/<code>munmap</code> and POPCNT bitmap acceleration.",
       k_2: "<strong>Scheduling &amp; Signals:</strong> Preemptive per-CPU run queues, ELF64 loader, POSIX threads, job control (<code>SIGSTOP</code>/<code>SIGTSTP</code>/<code>SIGCONT</code>, <code>wait4</code>).",
       k_3: "<strong>Debugging &amp; PMU:</strong> Full <code>ptrace(2)</code> (<code>TRACEME</code>, <code>ATTACH</code>, <code>SEIZE</code>, <code>int3</code>, single-step, COW-safe <code>PEEK</code>/<code>POKE</code>) + <code>perf_event_open(2)</code> hardware PMU counters.",
-      k_4: "<strong> ~20 ns vDSO Timekeeping:</strong> KVM pvclock / VMware TSC clocksource with sub-tick one-shot TSC-deadline interrupts for 1 ms precision <code>nanosleep</code>.",
+      k_4: "<strong>~20 ns vDSO Timekeeping:</strong> KVM pvclock / VMware TSC clocksource with sub-tick one-shot TSC-deadline interrupts for 1 ms precision <code>nanosleep</code>.",
       k_5: "<strong>CPU Security &amp; Extensions:</strong> SMEP, SMAP, UMIP, PKU, NX, FSGSBASE, PCID, XSAVE/XSAVEC, RDRAND/RDSEED, SSE4.2 CRC-32C dentry hashing, and exception-fixup boot probing.",
       d_h: "Hardware Abstraction Layer (HAL), Storage, USB 3.x &amp; Network Stack",
       d_p: "Modular PCI bus enumeration with MSI/INTx routing, I/O APIC + LAPIC SMP interrupts, and paravirtual + physical device drivers.",
@@ -395,11 +435,18 @@
       g_1: "<strong>Desktop Apps:</strong> <code>azwm</code> window manager, <code>terminal</code>, <code>texteditor</code>, <code>filemanager</code>, <code>sysmon</code>, <code>calculator</code>, <code>paint</code>, and games (<code>minesweeper</code>, <code>2048</code>, <code>snake</code>).",
       g_2: "<strong>X11 Client Protocol:</strong> Runs classic X11 clients including <code>xclock</code>, <code>xcalc</code>, <code>xeyes</code>, and <code>xcursor</code>.",
       g_3: "<strong>VFS &amp; Filesystems:</strong> <code>ext2</code>, <code>FAT32</code>, <code>ProcFS</code>, <code>SysFS</code>, <code>DevFS</code>, <code>Devpts</code>, <code>PipeFS</code>, and <code>TarFS</code> initrd with POSIX ACLs (<code>getfacl</code>/<code>setfacl</code>).",
-      usos_title: "USOS Checker — Android &amp; Desktop Client",
+      usos_title: "USOS Checker: Android &amp; Desktop Client",
       usos_repo_btn: "GitHub Repo",
+      usos_spec1_k: "Platforms",
+      usos_spec1_v: "Android 12+ APK · Windows MSI/ZIP · Linux DEB",
+      usos_spec2_k: "Modules",
+      usos_spec2_v: ":core · :shared · :app · :desktopApp",
+      usos_spec3_k: "Key Storage",
+      usos_spec3_v: "Android Keystore (no shared secret)",
+      usos_spec4_k: "Localization &amp; License",
+      usos_spec4_v: "PL / EN / UK · MIT License",
       usos_platform_desktop: "Desktop",
       usos_platform_setup: "API Setup",
-      bf_eyebrow: "Interactive Code Lab · a0w-svg/Hana_brainfuck",
       bf_source_btn: "View C++ Source (a0w-svg/Hana_brainfuck)",
       bf_load_azami: "Load brainfuck_programs/AzamiOS.bf",
       bf_load_hello: "Load brainfuck_programs/hello.bf",
@@ -412,10 +459,12 @@
       sort_name: "Sort: Alphabetical",
       modal_tree_label: "REPOSITORY TREE &amp; SUBSYSTEMS",
       modal_open: "Open on GitHub",
+      modal_tree_loading: "Loading repository tree from GitHub…",
+      modal_tree_unavailable: "Repository file list unavailable right now. Open on GitHub to browse files.",
       tl1_title: "Python Automation &amp; First x86 Kernel",
       tl1_desc: "Built <code>alsq</code> Discord bot and <code>password-generator</code> in Python, then began low-level OS development with <strong>JakOS</strong> (Rose-lk 32-bit x86 kernel in C &amp; Assembly).",
-      tl2_title: "C++, C# WPF, CTF Writeups &amp; AzamiOS Genesis",
-      tl2_desc: "Created <strong>Banking_System_Project</strong>, <strong>Wei_Matrix_calc</strong> (C# WPF), <strong>KnightCTFWriteups</strong> (2022), <strong>Snake</strong> (C++), and started the <strong>AzamiOS</strong> &amp; <strong>Hana_brainfuck</strong> repositories.",
+      tl2_title: "C++, C# WPF, CTF Writeups &amp; Early AzamiOS",
+      tl2_desc: "Created <strong>Banking_System_Project</strong>, <strong>Wei_Matrix_calc</strong> (C# WPF), <strong>KnightCTFWriteups</strong> (2022), <strong>Snake</strong> (C++), and started the <strong>AzamiOS</strong> &amp; <strong>Hana_brainfuck</strong>\u00A0repositories.",
       tl3_title: "Embedded SDL Games &amp; Language Interpreters",
       tl3_desc: "Explored retro handheld game architecture with <strong>yatka</strong> (C &amp; SDL 1.2) and refined <strong>Hana_brainfuck</strong> with custom Brainfuck programs (<code>AzamiOS.bf</code>).",
       tl4_title: "64-Bit AzamiOS &amp; USOS Checker v1.10.0",
@@ -429,78 +478,79 @@
       bf_stats: "{ops} ops executed · pointer at cell #{ptr}",
       bf_reset_stats: "Tape reset (0 ops)",
       bf_empty: "(empty stdout)",
-      hero_location: "Poland · On GitHub since Jan 2017",
-      hero_heading: 'Building from <span class="gradient-text">x86_64 Kernel Space</span> to Cross-Platform Native Apps.',
-      hero_lead: 'Systems and application developer crafting operating systems from bare metal in C &amp; Assembly (<strong>AzamiOS</strong>, <strong>JakOS</strong>) and multi-platform Kotlin software for Android, Windows, and Linux (<strong>USOS Checker</strong>).',
-      metric_public_repos: "Public Repositories",
-      metric_code_volume: "Public Source Volume",
-      metric_releases: "Published Releases",
-      metric_syscalls: "Linux x86_64 Syscalls",
-      telemetry_title: "Public Codebase Distribution (Bytes)",
-      azami_eyebrow: "Flagship Systems Engineering · a0w-svg/AzamiOS",
-      azami_subtitle: 'A 64-bit Long Mode operating system built from scratch featuring a Unix FHS hierarchy, unmodified Linux x86_64 ELF binary execution, a custom POSIX freestanding C library, hardware drivers, and the Azami Window Manager (<code>azwm</code>).',
-      azami_arch_heading: "Kernel, Syscall ABI & Userspace Architecture",
-      usos_eyebrow: "Cross-Platform Kotlin App · a0w-svg/usoschecker-public",
+      hero_location: "Poland · GitHub since Jan 2017",
+      hero_heading: "x86_64 kernels in C and Assembly. Native Android and desktop apps in Kotlin.",
+      hero_lead: "I build operating systems from bare metal (AzamiOS, JakOS) and multi-platform Kotlin applications for Android, Windows, and Linux (USOS\u00A0Checker).",
+      azami_subtitle: 'A 64-bit Long Mode operating system built from scratch with a Unix FHS hierarchy, unmodified Linux x86_64 ELF binary execution, a custom POSIX freestanding C library, hardware drivers, and the Azami Window Manager (<code>azwm</code>).',
       usos_subtitle: 'Unofficial USOS &amp; Platon companion for Vistula University students. Native Android 12+ and Desktop (Windows MSI/ZIP &amp; Linux DEB) built with Kotlin across <code>:core</code>, <code>:shared</code>, <code>:app</code>, and <code>:desktopApp</code>.',
       usos_prototype_btn: "Interactive UI Prototype",
-      usos_card_heading: "Your university day in one place — with local-first privacy.",
+      usos_card_heading: "Local-first university schedule, grades, and Platon LMS sync.",
       usos_card_desc: "Connects directly to Vistula’s USOS API using per-user keys stored in Android Keystore (no shared Consumer Secret in releases, and your university password never enters the app).",
-      usos_f1_title: "Today & Timetable",
+      usos_f1_title: "Today &amp; Timetable",
       usos_f1_desc: "Live class countdown, day/week/agenda views, schedule conflict detector, room & lecturer lookup, and <code>.ics</code> export.",
-      usos_f2_title: "Grades, GPA & Diff History",
+      usos_f2_title: "Grades, GPA &amp; Diff History",
       usos_f2_desc: "Semester grade breakdowns, interactive GPA calculator, and a before/after <strong>Changes</strong> feed tracking added or modified entries.",
       usos_f3_title: "Platon LMS Sync",
       usos_f3_desc: "Synchronizes assignments, deadlines, course progress, and messages from <code>platon.vistula.edu.pl</code> with background notifications.",
       usos_f4_title: "Zero-Shared-Secret Security",
       usos_f4_desc: "Automatic personal API key provisioning with USOSapps, hardware-backed Android Keystore encryption, and isolated Demo mode.",
-      bf_title: "Hana_brainfuck — Live Tape Interpreter",
-      bf_subtitle: 'Test-drive the actual Brainfuck programs from <code>a0w-svg/Hana_brainfuck/brainfuck_programs/</code> directly in your browser—including <code>AzamiOS.bf</code> and <code>hello.bf</code>.',
+      bf_title: "Hana_brainfuck: Live Tape Interpreter",
+      bf_subtitle: 'Run the Brainfuck programs from <code>a0w-svg/Hana_brainfuck/brainfuck_programs/</code> directly in your browser, including <code>AzamiOS.bf</code> and <code>hello.bf</code>.',
       bf_run: "Run Program",
-      repos_eyebrow: "Open-Source Index · github.com/a0w-svg",
       repos_title: "All Public Repositories (11)",
       repos_subtitle: "Filter by domain, search by language or keyword, or inspect the repository structure and architecture notes.",
       filter_all: "All (11)",
-      filter_systems: "OS & Systems (3)",
-      filter_apps: "Apps & Desktop (3)",
-      filter_games: "Games & C/C++ (2)",
-      filter_security: "CTF & Python (3)",
-      timeline_eyebrow: "Chronological Progression",
-      timeline_title: "Engineering Evolution (2019 – 2026)",
+      filter_systems: "OS &amp; Systems (3)",
+      filter_apps: "Apps &amp; Desktop (3)",
+      filter_games: "Games &amp; C/C++ (2)",
+      filter_security: "CTF &amp; Python (3)",
       inspect_btn: "Inspect Tree",
       source_btn: "GitHub"
     },
     pl: {
       skip_to_content: "Przejdź do głównej treści",
+      theme_auto: "Auto",
+      theme_dark: "Ciemny",
+      theme_light: "Jasny",
+      nav_projects: "Projekty",
+      nav_repos: "Repozytoria",
+      nav_about: "O mnie",
+      nav_contact: "Kontakt",
       cta_projects: "Zobacz projekty",
       cta_github: "Profil na GitHubie ↗",
       status_loading: "Sprawdzam GitHuba…",
       status_live: "Na żywo z GitHuba · ostatnia zmiana {date}",
       status_offline: "GitHub niedostępny · pokazuję zapisane dane",
-      home_projects_eyebrow: "Wybrane prace",
       home_projects_title: "Projekty",
-      about_eyebrow: "O mnie",
       about_title: "Programista systemów i aplikacji z Polski",
-      about_lead: "Piszę systemy operacyjne od zera w C i asemblerze oraz wieloplatformowe aplikacje w Kotlinie. Publikuję swoje projekty na GitHubie od 2017 roku — od małych narzędzi w Pythonie po 64-bitowy system.",
-      contact_eyebrow: "Kontakt",
+      about_lead: "Piszę systemy operacyjne od zera w C i asemblerze oraz wieloplatformowe aplikacje w Kotlinie. Publikuję swoje projekty na GitHubie od 2017 roku, od małych narzędzi w Pythonie po 64-bitowy system.",
       contact_title: "Skontaktuj się ze mną",
       contact_lead: "Najlepiej skontaktować się przez GitHuba. Pytania o konkretny projekt zgłoś jako issue w jego repozytorium.",
       contact_gh_title: "Profil na GitHubie",
-      contact_gh_desc: "Wszystkie publiczne repozytoria, wydania i aktywność.",
-      contact_azami_title: "AzamiOS — zgłoszenia",
+      contact_gh_desc: "Wszystkie publiczne repozytoria, wydania i\u00A0aktywność.",
+      contact_azami_title: "AzamiOS: zgłoszenia",
       contact_azami_desc: "Błędy i pytania dotyczące jądra, sterowników i przestrzeni użytkownika.",
-      contact_usos_title: "USOS Checker — zgłoszenia",
+      contact_usos_title: "USOS Checker: zgłoszenia",
       contact_usos_desc: "Błędy i pomysły na nowe funkcje w aplikacji na Androida i komputer.",
-      title_home: "a0w-svg (a0aRd) — systemy i oprogramowanie",
-      telemetry_total: "łącznie ~11,72 MB",
-      footer_prototype: "Prototyp USOS",
-      azami_title: "AzamiOS — 64-bitowy system operacyjny x86_64",
+      title_home: "a0w-svg (a0aRd) · systemy i oprogramowanie",
+      ledger_summary: "11 publicznych repozytoriów · 11,72 MB kodu · 24 wydania · 100+ syscalli Linuksa x86_64",
+      telemetry_title: "Rozkład języków w publicznych repozytoriach",
+      azami_title: "AzamiOS: 64-bitowy system operacyjny x86_64",
       azami_predecessor: "Poprzednik: JakOS (x86-32)",
+      azami_spec1_k: "Architektura",
+      azami_spec1_v: "x86_64 Long Mode (PML4)",
+      azami_spec2_k: "ABI wywołań",
+      azami_spec2_v: "Linux System V AMD64 (82 testy)",
+      azami_spec3_k: "Przestrzeń użytkownika",
+      azami_spec3_v: "Ponad 40 nagłówków libc · azwm + X11",
+      azami_spec4_k: "Boot i licencja",
+      azami_spec4_v: "Limine UEFI/BIOS · GPL-2.0 / BSD-3",
       tab_kernel: "Jądro i ABI Linuksa",
       tab_drivers: "Sterowniki i sieć",
       tab_libc: "Własna libc i porty",
       tab_gui: "GUI azwm i VFS",
       k_h: "Wywłaszczające jądro x86_64 i niezmodyfikowane binaria Linuksa",
-      k_p: "Implementuje ABI wywołań <code>syscall</code> System V AMD64 Linuksa, dzięki czemu statyczne binaria skompilowane zwykłym linuksowym toolchainem działają bezpośrednio — bez nakładek i łatek w kodzie.",
+      k_p: "Implementuje ABI wywołań <code>syscall</code> System V AMD64 Linuksa, dzięki czemu statyczne binaria skompilowane zwykłym linuksowym toolchainem działają bezpośrednio, bez nakładek i łatek w kodzie.",
       k_1: "<strong>Pamięć i stronicowanie:</strong> menedżer pamięci fizycznej (PMM), alokator slab <code>kmalloc</code>, 4-poziomowe stronicowanie PML4 z <code>mmap</code>/<code>munmap</code> i bitmapą przyspieszaną instrukcją POPCNT.",
       k_2: "<strong>Planowanie i sygnały:</strong> wywłaszczające kolejki zadań dla każdego procesora, loader ELF64, wątki POSIX, kontrola zadań (<code>SIGSTOP</code>/<code>SIGTSTP</code>/<code>SIGCONT</code>, <code>wait4</code>).",
       k_3: "<strong>Debugowanie i PMU:</strong> pełny <code>ptrace(2)</code> (<code>TRACEME</code>, <code>ATTACH</code>, <code>SEIZE</code>, <code>int3</code>, praca krokowa, bezpieczne dla COW <code>PEEK</code>/<code>POKE</code>) oraz sprzętowe liczniki PMU przez <code>perf_event_open(2)</code>.",
@@ -523,11 +573,18 @@
       g_1: "<strong>Aplikacje:</strong> menedżer okien <code>azwm</code>, <code>terminal</code>, <code>texteditor</code>, <code>filemanager</code>, <code>sysmon</code>, <code>calculator</code>, <code>paint</code> oraz gry (<code>minesweeper</code>, <code>2048</code>, <code>snake</code>).",
       g_2: "<strong>Protokół klienta X11:</strong> uruchamia klasyczne programy X11, m.in. <code>xclock</code>, <code>xcalc</code>, <code>xeyes</code> i <code>xcursor</code>.",
       g_3: "<strong>VFS i systemy plików:</strong> <code>ext2</code>, <code>FAT32</code>, <code>ProcFS</code>, <code>SysFS</code>, <code>DevFS</code>, <code>Devpts</code>, <code>PipeFS</code> i initrd <code>TarFS</code> z listami ACL POSIX (<code>getfacl</code>/<code>setfacl</code>).",
-      usos_title: "USOS Checker — aplikacja na Androida i komputer",
+      usos_title: "USOS Checker: aplikacja na Androida i komputer",
       usos_repo_btn: "Repozytorium na GitHubie",
+      usos_spec1_k: "Platformy",
+      usos_spec1_v: "Android 12+ APK · Windows MSI/ZIP · Linux DEB",
+      usos_spec2_k: "Moduły",
+      usos_spec2_v: ":core · :shared · :app · :desktopApp",
+      usos_spec3_k: "Przechowywanie klucza",
+      usos_spec3_v: "Android Keystore (bez wspólnego sekretu)",
+      usos_spec4_k: "Języki i licencja",
+      usos_spec4_v: "PL / EN / UK · licencja MIT",
       usos_platform_desktop: "Komputer",
       usos_platform_setup: "Konfiguracja API",
-      bf_eyebrow: "Interaktywne laboratorium · a0w-svg/Hana_brainfuck",
       bf_source_btn: "Kod źródłowy C++ (a0w-svg/Hana_brainfuck)",
       bf_load_azami: "Wczytaj brainfuck_programs/AzamiOS.bf",
       bf_load_hello: "Wczytaj brainfuck_programs/hello.bf",
@@ -540,14 +597,16 @@
       sort_name: "Sortuj: alfabetycznie",
       modal_tree_label: "DRZEWO REPOZYTORIUM I PODSYSTEMY",
       modal_open: "Otwórz na GitHubie",
+      modal_tree_loading: "Wczytywanie drzewa plików z GitHuba…",
+      modal_tree_unavailable: "Drzewo plików chwilowo niedostępne. Otwórz repozytorium na GitHubie.",
       tl1_title: "Automatyzacja w Pythonie i pierwsze jądro x86",
       tl1_desc: "Napisałem w Pythonie bota Discord <code>alsq</code> i <code>password-generator</code>, a potem zacząłem tworzyć system operacyjny <strong>JakOS</strong> (32-bitowe jądro x86 Rose-lk w C i asemblerze).",
       tl2_title: "C++, C# WPF, rozwiązania CTF i początki AzamiOS",
-      tl2_desc: "Powstały <strong>Banking_System_Project</strong>, <strong>Wei_Matrix_calc</strong> (C# WPF), <strong>KnightCTFWriteups</strong> (2022) i <strong>Snake</strong> (C++), a także repozytoria <strong>AzamiOS</strong> i <strong>Hana_brainfuck</strong>.",
+      tl2_desc: "Powstały <strong>Banking_System_Project</strong>, <strong>Wei_Matrix_calc</strong> (C# WPF), <strong>KnightCTFWriteups</strong> (2022) i <strong>Snake</strong> (C++), a także repozytoria <strong>AzamiOS</strong> i\u00A0<strong>Hana_brainfuck</strong>.",
       tl3_title: "Gry w SDL na konsole przenośne i interpretery języków",
       tl3_desc: "Poznawałem budowę gier na retro konsole przenośne w projekcie <strong>yatka</strong> (C i SDL 1.2) i rozwijałem <strong>Hana_brainfuck</strong> o własne programy w Brainfucku (<code>AzamiOS.bf</code>).",
       tl4_title: "64-bitowy AzamiOS i USOS Checker v1.10.0",
-      tl4_desc: "Rozbudowałem <strong>AzamiOS</strong> do ponad 8,4 MB kodu — 64-bitowego systemu x86_64, który uruchamia niezmodyfikowane binaria Linuksa i ma GUI <code>azwm</code> — oraz wydałem 24 wersje <strong>USOS Checker</strong> na Androida, Windows i Linuksa.",
+      tl4_desc: "Rozbudowałem <strong>AzamiOS</strong> do ponad 8,4 MB kodu (64-bitowy system x86_64 uruchamiający niezmodyfikowane binaria Linuksa z GUI <code>azwm</code>) oraz wydałem 24 wersje <strong>USOS Checker</strong> na Androida, Windows i Linuksa.",
       ph_search: "Szukaj: nazwa, C, Kotlin, x86...",
       usos_download: "Pobierz najnowszą",
       usos_theme_dark: "Ciemny (OLED)",
@@ -558,20 +617,12 @@
       bf_reset_stats: "Taśma wyczyszczona (0 operacji)",
       bf_empty: "(brak wyjścia)",
       hero_location: "Polska · Na GitHubie od stycznia 2017",
-      hero_heading: 'Od <span class="gradient-text">jądra systemu x86_64</span> po wieloplatformowe aplikacje natywne.',
-      hero_lead: 'Tworzę niskopoziomowe systemy operacyjne w C i asemblerze (<strong>AzamiOS</strong>, <strong>JakOS</strong>) oraz wieloplatformowe aplikacje w Kotlinie na Androida, Windows i Linuksa (<strong>USOS Checker</strong>).',
-      metric_public_repos: "Publiczne repozytoria",
-      metric_code_volume: "Rozmiar kodu źródłowego",
-      metric_releases: "Opublikowane wydania",
-      metric_syscalls: "Syscalle Linuksa x86_64",
-      telemetry_title: "Rozkład języków w publicznych repozytoriach",
-      azami_eyebrow: "Flagowy projekt systemowy · a0w-svg/AzamiOS",
+      hero_heading: "Jądra x86_64 w C i asemblerze. Natywne aplikacje na Androida i desktop w Kotlinie.",
+      hero_lead: "Piszę systemy operacyjne od zera w C i asemblerze (AzamiOS, JakOS) oraz wieloplatformowe aplikacje w Kotlinie na Androida, Windows i Linuksa (USOS\u00A0Checker).",
       azami_subtitle: '64-bitowy system operacyjny x86_64 napisany od podstaw: hierarchia FHS, uruchamianie niezmodyfikowanych binariów Linuksa ELF64, własna biblioteka POSIX libc, sterowniki sprzętowe i środowisko graficzne <code>azwm</code>.',
-      azami_arch_heading: "Architektura jądra, ABI wywołań systemowych i przestrzeni użytkownika",
-      usos_eyebrow: "Wieloplatformowa aplikacja Kotlin · a0w-svg/usoschecker-public",
       usos_subtitle: 'Nieoficjalny klient USOS i Platon dla studentów Uczelni Vistula. Natywna aplikacja na Androida 12+ oraz Desktop (Windows MSI/ZIP i Linux DEB) zbudowana w oparciu o moduły <code>:core</code>, <code>:shared</code>, <code>:app</code> i <code>:desktopApp</code>.',
       usos_prototype_btn: "Interaktywny prototyp UI",
-      usos_card_heading: "Twój dzień na uczelni w jednym miejscu — z lokalną prywatnością.",
+      usos_card_heading: "Plan zajęć, oceny i synchronizacja z Platonem w jednym miejscu.",
       usos_card_desc: "Łączy się bezpośrednio z USOS za pomocą osobistego klucza API szyfrowanego w Android Keystore (wydania nie zawierają wspólnego Consumer Secret, a hasło uczelniane nigdy nie trafia do aplikacji).",
       usos_f1_title: "Dzisiaj i Plan zajęć",
       usos_f1_desc: "Odliczanie do zajęć, widoki dnia/tygodnia/agendy, wykrywanie kolizji w planie, wyszukiwarka sal i eksport <code>.ics</code>.",
@@ -581,10 +632,9 @@
       usos_f3_desc: "Synchronizacja zadań, terminów, postępu kursów i wiadomości z <code>platon.vistula.edu.pl</code> z powiadomieniami w tle.",
       usos_f4_title: "Bezpieczeństwo bez wspólnego sekretu",
       usos_f4_desc: "Automatyczna rejestracja własnego klucza w USOSapps, szyfrowany magazyn Android Keystore i odizolowany tryb Demo.",
-      bf_title: "Hana_brainfuck — Interaktywny interpreter w przeglądarce",
-      bf_subtitle: 'Uruchom oryginalne programy z repozytorium <code>a0w-svg/Hana_brainfuck/brainfuck_programs/</code> bezpośrednio na taśmie pamięci — w tym <code>AzamiOS.bf</code> oraz <code>hello.bf</code>.',
+      bf_title: "Hana_brainfuck: interaktywny interpreter w przeglądarce",
+      bf_subtitle: 'Uruchom oryginalne programy z repozytorium <code>a0w-svg/Hana_brainfuck/brainfuck_programs/</code> bezpośrednio na taśmie pamięci, w tym <code>AzamiOS.bf</code> oraz <code>hello.bf</code>.',
       bf_run: "Uruchom program",
-      repos_eyebrow: "Indeks Open-Source · github.com/a0w-svg",
       repos_title: "Wszystkie publiczne repozytoria (11)",
       repos_subtitle: "Filtruj według kategorii, wyszukuj po języku lub sprawdź drzewo plików i architekturę każdego projektu.",
       filter_all: "Wszystkie (11)",
@@ -592,16 +642,328 @@
       filter_apps: "Aplikacje (3)",
       filter_games: "Gry C/C++ (2)",
       filter_security: "CTF i Python (3)",
-      timeline_eyebrow: "Rozwój projektów",
-      timeline_title: "Ewolucja inżynierska (2019 – 2026)",
       inspect_btn: "Struktura",
       source_btn: "GitHub"
     }
   };
 
   // --------------------------------------------------------------------------
-  // 3. Language: follows the browser's language unless the visitor picked one
-  //    in the footer. One dark theme only — no theme switch.
+  // 3. GitHub Data Normalization, Categorization & Dynamic Updates
+  // --------------------------------------------------------------------------
+  const PL_MONTHS_GEN = [
+    "stycznia", "lutego", "marca", "kwietnia", "maja", "czerwca",
+    "lipca", "sierpnia", "września", "października", "listopada", "grudnia"
+  ];
+  const EN_MONTHS_SHORT = [
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+  ];
+  const LANG_CLASSES = [
+    { seg: "seg-c", dot: "dot-c" },
+    { seg: "seg-kt", dot: "dot-kt" },
+    { seg: "seg-py", dot: "dot-py" },
+    { seg: "seg-sh", dot: "dot-sh" },
+    { seg: "seg-asm", dot: "dot-asm" }
+  ];
+
+  function escapeHtml(text) {
+    return String(text ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
+  function formatBytes(bytes) {
+    const n = Number(bytes) || 0;
+    if (n >= 1000000) return `${(n / 1000000).toFixed(2)} MB`;
+    if (n >= 1000) return `${(n / 1000).toFixed(1)} KB`;
+    return `${n} B`;
+  }
+
+  function sanitizeDescription(text) {
+    if (!text) return "";
+    return String(text)
+      .replace(/\s*—\s*/g, ": ")
+      .replace(/\s+--\s+/g, ": ")
+      .trim();
+  }
+
+  function bindLastTwoWords(text) {
+    if (!text || text.includes("\u00A0")) return text;
+    const idx = text.lastIndexOf(" ");
+    if (idx <= 0) return text;
+    const tail = text.slice(idx + 1);
+    if (tail.length > 24) return text;
+    return text.slice(0, idx) + "\u00A0" + tail;
+  }
+
+  function pluralPl(count, one, few, many) {
+    if (count === 1) return one;
+    const mod10 = count % 10;
+    const mod100 = count % 100;
+    if (mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14)) return few;
+    return many;
+  }
+
+  function inferCategory(liveRepo) {
+    const name = (liveRepo.name || "").toLowerCase();
+    const desc = (liveRepo.description || "").toLowerCase();
+    const lang = (liveRepo.language || "").toLowerCase();
+    const topics = Array.isArray(liveRepo.topics) ? liveRepo.topics.join(" ").toLowerCase() : "";
+
+    if (/github\.io$|portfolio|website|webapp/.test(name)) return "apps";
+    if (/\b(game|tetris|snake|sdl|arcade)\b/.test(`${name} ${topics} ${desc}`)) return "games";
+    if (["c", "assembly", "rust"].includes(lang) || /\b(os|kernel|brainfuck|libc|bootloader|emulator)\b/.test(`${name} ${topics}`)) {
+      return "systems";
+    }
+    if (lang === "python" || lang === "shell" || /\b(ctf|security|bot|password|writeup)\b/.test(`${name} ${topics} ${desc}`)) {
+      return "security";
+    }
+    return "apps";
+  }
+
+  function buildRepoFromGitHub(live, curated, langBytes) {
+    const resolvedLangBytes = langBytes || (curated ? curated.langBytes : null) || {};
+    const totalLangBytes = Object.values(resolvedLangBytes).reduce((sum, v) => sum + (Number(v) || 0), 0);
+    const topLangFromMap = Object.entries(resolvedLangBytes).sort((a, b) => b[1] - a[1])[0]?.[0];
+    const primaryLang = live.language || topLangFromMap || (curated ? curated.language : "Files");
+
+    const sizeBytes = totalLangBytes > 0
+      ? totalLangBytes
+      : ((Number(live.size) || 0) * 1024 || (curated ? curated.sizeBytes : 0));
+
+    const createdAt = live.created_at ? live.created_at.slice(0, 10) : (curated ? curated.createdAt : "");
+    const updatedAt = live.pushed_at
+      ? live.pushed_at.slice(0, 10)
+      : (live.updated_at ? live.updated_at.slice(0, 10) : (curated ? curated.updatedAt : ""));
+
+    const licenseName = (live.license && live.license.spdx_id && live.license.spdx_id !== "NOASSERTION")
+      ? live.license.spdx_id
+      : (curated ? curated.license : "Public Repo");
+
+    if (curated) {
+      const hasNewLangBytes = Boolean(langBytes && totalLangBytes > 0);
+      let sizeLabel = curated.sizeLabel;
+      if (hasNewLangBytes && totalLangBytes !== curated.sizeBytes) {
+        const primaryBytes = resolvedLangBytes[primaryLang];
+        sizeLabel = primaryBytes
+          ? `${formatBytes(totalLangBytes)} (${formatBytes(primaryBytes)} ${primaryLang})`
+          : formatBytes(totalLangBytes);
+      }
+
+      return {
+        ...curated,
+        url: live.html_url || curated.url,
+        homepage: live.homepage || curated.homepage,
+        language: primaryLang,
+        license: live.license && live.license.spdx_id && live.license.spdx_id !== "NOASSERTION" && !curated.license.includes("/")
+          ? live.license.spdx_id
+          : curated.license,
+        fork: typeof live.fork === "boolean" ? live.fork : curated.fork,
+        stars: typeof live.stargazers_count === "number" ? live.stargazers_count : curated.stars,
+        sizeBytes,
+        sizeLabel,
+        langBytes: resolvedLangBytes,
+        createdAt: createdAt || curated.createdAt,
+        updatedAt: updatedAt || curated.updatedAt
+      };
+    }
+
+    const cleanDesc = sanitizeDescription(live.description);
+    const sizeLabel = totalLangBytes > 0
+      ? (primaryLang !== "Files" ? `${formatBytes(totalLangBytes)} (${primaryLang})` : formatBytes(totalLangBytes))
+      : `${formatBytes(sizeBytes)} (repo)`;
+
+    const descEn = cleanDesc
+      ? bindLastTwoWords(cleanDesc)
+      : `Public repository (${primaryLang}) · created ${createdAt}, last pushed\u00A0${updatedAt}.`;
+    const descPl = cleanDesc
+      ? bindLastTwoWords(cleanDesc)
+      : `Publiczne repozytorium (${primaryLang}) · utworzone ${createdAt}, ostatnia zmiana\u00A0${updatedAt}.`;
+
+    const branch = live.default_branch || "main";
+    const topicsLine = Array.isArray(live.topics) && live.topics.length > 0
+      ? `Topics: ${live.topics.slice(0, 4).join(", ")}`
+      : null;
+
+    const highlightsEn = [
+      bindLastTwoWords(`${primaryLang} · ${sizeLabel}`),
+      bindLastTwoWords(`Branch: ${branch} · License: ${licenseName}`),
+      bindLastTwoWords(topicsLine || `Created ${createdAt} · last push ${updatedAt}`)
+    ];
+
+    const highlightsPl = [
+      bindLastTwoWords(`${primaryLang} · ${sizeLabel}`),
+      bindLastTwoWords(`Gałąź: ${branch} · Licencja: ${licenseName}`),
+      bindLastTwoWords(topicsLine || `Utworzone ${createdAt} · ostatnia zmiana ${updatedAt}`)
+    ];
+
+    return {
+      name: live.name,
+      url: live.html_url || `https://github.com/${GITHUB_USER}/${live.name}`,
+      homepage: live.homepage || undefined,
+      category: inferCategory(live),
+      language: primaryLang,
+      license: licenseName,
+      fork: Boolean(live.fork),
+      stars: live.stargazers_count || 0,
+      sizeBytes,
+      sizeLabel,
+      langBytes: resolvedLangBytes,
+      createdAt,
+      updatedAt,
+      desc: { en: descEn, pl: descPl },
+      highlights: highlightsEn,
+      highlightsPl,
+      tree: cachedTrees[live.name] || null,
+      isEscapedLive: true
+    };
+  }
+
+  function updateDynamicCounts() {
+    const counts = {
+      all: reposList.length,
+      systems: reposList.filter((r) => r.category === "systems").length,
+      apps: reposList.filter((r) => r.category === "apps").length,
+      games: reposList.filter((r) => r.category === "games").length,
+      security: reposList.filter((r) => r.category === "security").length
+    };
+
+    const titleEl = document.querySelector('[data-i18n="repos_title"]');
+    if (titleEl) {
+      titleEl.textContent = currentLang === "pl"
+        ? `Wszystkie publiczne repozytoria (${counts.all})`
+        : `All Public Repositories (${counts.all})`;
+    }
+
+    const filterLabels = currentLang === "pl"
+      ? {
+          all: `Wszystkie (${counts.all})`,
+          systems: `Systemy i OS (${counts.systems})`,
+          apps: `Aplikacje (${counts.apps})`,
+          games: `Gry C/C++ (${counts.games})`,
+          security: `CTF i Python (${counts.security})`
+        }
+      : {
+          all: `All (${counts.all})`,
+          systems: `OS & Systems (${counts.systems})`,
+          apps: `Apps & Desktop (${counts.apps})`,
+          games: `Games & C/C++ (${counts.games})`,
+          security: `CTF & Python (${counts.security})`
+        };
+
+    Object.entries(filterLabels).forEach(([filterKey, label]) => {
+      const btn = document.querySelector(`.filter-btn[data-filter="${filterKey}"]`);
+      if (btn) btn.textContent = label;
+    });
+  }
+
+  function updateProfileAndTelemetry() {
+    const avatarEl = document.querySelector(".header-avatar");
+    const handleEl = document.querySelector(".header-handle");
+    const locationEl = document.querySelector('[data-i18n="hero_location"]');
+    const ledgerEl = document.querySelector('[data-i18n="ledger_summary"]');
+    const langBarEl = document.querySelector(".lang-bar");
+    const langLegendEl = document.querySelector(".lang-legend");
+
+    if (profileData) {
+      if (avatarEl && profileData.avatar_url) {
+        avatarEl.src = profileData.avatar_url;
+      }
+      if (handleEl && profileData.login) {
+        handleEl.textContent = `@${profileData.login}${profileData.name ? " · " + profileData.name : ""}`;
+      }
+      if (locationEl) {
+        const locRaw = profileData.location || "Poland";
+        const locPl = locRaw === "Poland" ? "Polska" : locRaw;
+        let sinceEn = "Jan 2017";
+        let sincePl = "stycznia 2017";
+        if (profileData.created_at) {
+          const d = new Date(profileData.created_at);
+          if (!Number.isNaN(d.getTime())) {
+            sinceEn = `${EN_MONTHS_SHORT[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
+            sincePl = `${PL_MONTHS_GEN[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
+          }
+        }
+        locationEl.textContent = currentLang === "pl"
+          ? `${locPl} · Na GitHubie od ${sincePl}`
+          : `${locRaw} · GitHub since ${sinceEn}`;
+      }
+    }
+
+    const langTotals = {};
+    let totalCodeBytes = 0;
+
+    reposList.forEach((repo) => {
+      const map = repo.langBytes || {};
+      const entries = Object.entries(map);
+      if (entries.length > 0) {
+        entries.forEach(([lang, bytes]) => {
+          const val = Number(bytes) || 0;
+          if (val > 0) {
+            langTotals[lang] = (langTotals[lang] || 0) + val;
+            totalCodeBytes += val;
+          }
+        });
+      }
+    });
+
+    const repoCount = reposList.length;
+    const totalMbEn = (totalCodeBytes / 1000000).toFixed(2);
+    const totalMbPl = totalMbEn.replace(".", ",");
+
+    if (ledgerEl) {
+      ledgerEl.textContent = currentLang === "pl"
+        ? `${repoCount} ${pluralPl(repoCount, "publiczne repozytorium", "publiczne repozytoria", "publicznych repozytoriów")} · ${totalMbPl} MB kodu · ${usosReleaseCount} ${pluralPl(usosReleaseCount, "wydanie", "wydania", "wydań")} · 100+ syscalli Linuksa x86_64`
+        : `${repoCount} public repositories · ${totalMbEn} MB source · ${usosReleaseCount} releases · 100+ Linux x86_64 syscalls`;
+    }
+
+    if (langBarEl && langLegendEl && totalCodeBytes > 0) {
+      const sorted = Object.entries(langTotals)
+        .filter(([, bytes]) => bytes > 0)
+        .sort((a, b) => b[1] - a[1]);
+
+      const buckets = sorted.slice(0, 4).map(([name, bytes]) => ({ name, bytes }));
+      const restBytes = sorted.slice(4).reduce((sum, [, bytes]) => sum + bytes, 0);
+      if (restBytes > 0) {
+        buckets.push({ name: currentLang === "pl" ? "Inne" : "Other", bytes: restBytes });
+      }
+
+      langBarEl.innerHTML = "";
+      langLegendEl.innerHTML = "";
+      const ariaParts = [];
+
+      buckets.forEach((bucket, i) => {
+        const cls = LANG_CLASSES[i] || LANG_CLASSES[LANG_CLASSES.length - 1];
+        const pct = (bucket.bytes / totalCodeBytes) * 100;
+        const sizeStr = formatBytes(bucket.bytes);
+
+        const seg = document.createElement("div");
+        seg.className = `lang-segment ${cls.seg}`;
+        seg.style.width = `${pct.toFixed(1)}%`;
+        seg.title = `${bucket.name}: ${sizeStr} (${pct.toFixed(1)}%)`;
+        langBarEl.appendChild(seg);
+
+        const pill = document.createElement("span");
+        pill.className = "lang-pill";
+        const dot = document.createElement("span");
+        dot.className = `lang-dot ${cls.dot}`;
+        pill.appendChild(dot);
+        pill.appendChild(document.createTextNode(`${bucket.name} (${sizeStr})`));
+        langLegendEl.appendChild(pill);
+
+        ariaParts.push(`${pct.toFixed(1)}% ${bucket.name}`);
+      });
+
+      const prefix = currentLang === "pl" ? "Rozkład języków: " : "Language distribution: ";
+      langBarEl.setAttribute("aria-label", prefix + ariaParts.join(", "));
+    }
+  }
+
+  // --------------------------------------------------------------------------
+  // 4. Language & Theme State
   // --------------------------------------------------------------------------
   function readStoredLang() {
     try {
@@ -612,7 +974,6 @@
   }
 
   function detectLang() {
-    // The first language in the visitor's list that this site supports wins
     const prefs = navigator.languages || [navigator.language || "en"];
     for (const l of prefs) {
       const base = String(l).toLowerCase().split("-")[0];
@@ -629,7 +990,6 @@
   const htmlEl = document.documentElement;
   const langButtons = document.querySelectorAll("[data-lang]");
 
-  // GitHub status in the hero: "loading" until the API answers, then "live" or "offline"
   const liveStatusEl = document.getElementById("live-status");
   const liveStatusText = document.getElementById("live-status-text");
   let liveState = { state: "loading", lastPush: null };
@@ -665,13 +1025,14 @@
       const key = el.getAttribute("data-i18n-placeholder");
       if (dict[key]) el.placeholder = dict[key];
     });
+    updateDynamicCounts();
+    updateProfileAndTelemetry();
     renderRepositories();
     updateUsosPreview();
     renderLiveStatus();
     if (bfCodeEl) executeBrainfuck(bfCodeEl.value);
   }
 
-  // Look up a translated string, filling {placeholders} from vars
   function t(key, vars = {}) {
     const dict = I18N[currentLang] || I18N.en;
     const text = dict[key] || I18N.en[key] || key;
@@ -684,14 +1045,54 @@
       try {
         localStorage.setItem("a0w_lang", lang);
       } catch (_) {
-        // Storage blocked: the choice just lasts for this visit
+        // Storage blocked: the choice lasts for this visit
       }
       applyLanguage(lang);
     });
   });
 
+  const themeButtons = document.querySelectorAll("[data-theme-choice]");
+  const themeMeta = document.querySelector('meta[name="theme-color"]');
+  const systemLight = window.matchMedia("(prefers-color-scheme: light)");
+
+  function readStoredTheme() {
+    try {
+      const v = localStorage.getItem("a0w_theme");
+      return v === "dark" || v === "light" ? v : "auto";
+    } catch (_) {
+      return "auto";
+    }
+  }
+
+  function applyTheme(choice) {
+    if (choice === "auto") htmlEl.removeAttribute("data-theme");
+    else htmlEl.setAttribute("data-theme", choice);
+    themeButtons.forEach((b) => b.setAttribute("aria-pressed", String(b.getAttribute("data-theme-choice") === choice)));
+    const effective = choice === "auto" ? (systemLight.matches ? "light" : "dark") : choice;
+    if (themeMeta) themeMeta.setAttribute("content", effective === "light" ? "#f7f7f4" : "#0f1012");
+  }
+
+  themeButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const choice = btn.getAttribute("data-theme-choice");
+      try {
+        if (choice === "auto") localStorage.removeItem("a0w_theme");
+        else localStorage.setItem("a0w_theme", choice);
+      } catch (_) {
+        // Storage blocked: the choice lasts for this visit
+      }
+      applyTheme(choice);
+    });
+  });
+
+  systemLight.addEventListener("change", () => {
+    if (readStoredTheme() === "auto") applyTheme("auto");
+  });
+
+  applyTheme(readStoredTheme());
+
   // --------------------------------------------------------------------------
-  // 3b. Projects segmented control — one project visible at a time
+  // 5. Projects Segmented Control & AzamiOS Subsystem Tabs
   // --------------------------------------------------------------------------
   const projectTabs = [...document.querySelectorAll(".project-tab")];
 
@@ -715,29 +1116,38 @@
     });
   });
 
-  // --------------------------------------------------------------------------
-  // 4. AzamiOS Subsystem Tabs
-  // --------------------------------------------------------------------------
-  const tabButtons = document.querySelectorAll(".tab-btn");
+  const tabButtons = [...document.querySelectorAll(".tab-btn")];
   const tabPanels = document.querySelectorAll(".subsystem-panel");
 
-  tabButtons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const targetId = btn.getAttribute("aria-controls");
-      tabButtons.forEach((b) => b.setAttribute("aria-selected", String(b === btn)));
-      tabPanels.forEach((panel) => {
-        if (panel.id === targetId) {
-          panel.removeAttribute("hidden");
-        } else {
-          panel.setAttribute("hidden", "");
-        }
-      });
+  function selectSubsystemTab(btn, moveFocus = false) {
+    const targetId = btn.getAttribute("aria-controls");
+    tabButtons.forEach((b) => {
+      const selected = b === btn;
+      b.setAttribute("aria-selected", String(selected));
+      b.tabIndex = selected ? 0 : -1;
+    });
+    tabPanels.forEach((panel) => {
+      if (panel.id === targetId) {
+        panel.removeAttribute("hidden");
+      } else {
+        panel.setAttribute("hidden", "");
+      }
+    });
+    if (moveFocus) btn.focus();
+  }
+
+  tabButtons.forEach((btn, i) => {
+    btn.addEventListener("click", () => selectSubsystemTab(btn));
+    btn.addEventListener("keydown", (e) => {
+      const step = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
+      if (!step) return;
+      e.preventDefault();
+      selectSubsystemTab(tabButtons[(i + step + tabButtons.length) % tabButtons.length], true);
     });
   });
 
-
   // --------------------------------------------------------------------------
-  // 5. USOS Checker Screenshot Stage Switcher
+  // 6. USOS Checker Screenshot Stage Switcher
   // --------------------------------------------------------------------------
   let usosPlatform = "desktop";
   let usosTheme = "dark";
@@ -754,8 +1164,8 @@
         pl: "USOS Checker na komputerze w ciemnym motywie z danymi demo"
       },
       caption: {
-        en: "Desktop (Windows / Linux) — Dark Theme · Today view with live schedule & recent changes",
-        pl: "Komputer (Windows / Linux) — ciemny motyw · widok Dzisiaj z bieżącym planem i ostatnimi zmianami"
+        en: "Desktop (Windows / Linux), Dark Theme · Today view with live schedule & recent changes",
+        pl: "Komputer (Windows / Linux), ciemny motyw · widok Dzisiaj z bieżącym planem i ostatnimi zmianami"
       }
     },
     "desktop-light": {
@@ -765,8 +1175,8 @@
         pl: "USOS Checker na komputerze w jasnym motywie z danymi demo"
       },
       caption: {
-        en: "Desktop (Windows / Linux) — Light Theme · Neutral cards & cyan accent",
-        pl: "Komputer (Windows / Linux) — jasny motyw · neutralne karty i turkusowy akcent"
+        en: "Desktop (Windows / Linux), Light Theme · Neutral cards & cyan accent",
+        pl: "Komputer (Windows / Linux), jasny motyw · neutralne karty i turkusowy akcent"
       }
     },
     "android-dark": {
@@ -776,8 +1186,8 @@
         pl: "USOS Checker na Androidzie w ciemnym motywie OLED"
       },
       caption: {
-        en: "Android 12+ — OLED Dark Theme · Today view, class countdown & bottom navigation",
-        pl: "Android 12+ — ciemny motyw OLED · widok Dzisiaj, odliczanie do zajęć i dolna nawigacja"
+        en: "Android 12+, OLED Dark Theme · Today view, class countdown & bottom navigation",
+        pl: "Android 12+, ciemny motyw OLED · widok Dzisiaj, odliczanie do zajęć i dolna nawigacja"
       }
     },
     "android-light": {
@@ -787,8 +1197,8 @@
         pl: "USOS Checker na Androidzie w jasnym motywie"
       },
       caption: {
-        en: "Android 12+ — Light Theme · Adaptive Material interface",
-        pl: "Android 12+ — jasny motyw · adaptacyjny interfejs Material"
+        en: "Android 12+, Light Theme · Adaptive Material interface",
+        pl: "Android 12+, jasny motyw · adaptacyjny interfejs Material"
       }
     },
     "onboarding-dark": {
@@ -798,8 +1208,8 @@
         pl: "Ekran konfiguracji API przy pierwszym uruchomieniu USOS Checker"
       },
       caption: {
-        en: "First-Run Onboarding — Automatic personal USOSapps API key provisioning",
-        pl: "Pierwsze uruchomienie — automatyczne utworzenie osobistego klucza API w USOSapps"
+        en: "First-Run Onboarding: automatic personal USOSapps API key provisioning",
+        pl: "Pierwsze uruchomienie: automatyczne utworzenie osobistego klucza API w USOSapps"
       }
     },
     "onboarding-light": {
@@ -809,8 +1219,8 @@
         pl: "Instrukcja ręcznego wpisania Consumer Key i Consumer Secret w USOS Checker"
       },
       caption: {
-        en: "API Key Guide — Instructions for Consumer Key & Consumer Secret stored in Android Keystore",
-        pl: "Instrukcja klucza API — jak wpisać Consumer Key i Consumer Secret przechowywane w Android Keystore"
+        en: "API Key Guide: instructions for Consumer Key & Consumer Secret stored in Android Keystore",
+        pl: "Instrukcja klucza API: jak wpisać Consumer Key i Consumer Secret przechowywane w Android Keystore"
       }
     }
   };
@@ -854,7 +1264,7 @@
   });
 
   // --------------------------------------------------------------------------
-  // 6. Hana_brainfuck Live Tape Interpreter (AzamiOS.bf & hello.bf)
+  // 7. Hana_brainfuck Live Tape Interpreter (AzamiOS.bf & hello.bf)
   // --------------------------------------------------------------------------
   const BF_PROGRAMS = {
     azami: `+++++ +++++ //initialize counter (cell #0) to 10
@@ -901,7 +1311,6 @@
   }
 
   function executeBrainfuck(source) {
-    // Strip single-line comments so // comments in AzamiOS.bf don't interfere
     const clean = source.replace(/\/\/.*$/gm, "");
     const tape = new Uint8Array(256);
     let ptr = 0;
@@ -910,7 +1319,6 @@
     let out = "";
     const maxOps = 100000;
 
-    // Precompute bracket jumps
     const jumps = {};
     const stack = [];
     for (let i = 0; i < clean.length; i++) {
@@ -969,7 +1377,6 @@
     bfStatsEl.textContent = t("bf_stats", { ops, ptr });
   }
 
-  // Interpreter only exists on projects.html
   if (bfCodeEl && bfTapeEl && bfStdoutEl && bfStatsEl) {
     bfCodeEl.value = BF_PROGRAMS.azami;
     executeBrainfuck(BF_PROGRAMS.azami);
@@ -996,7 +1403,7 @@
   }
 
   // --------------------------------------------------------------------------
-  // 7. Repository Explorer Rendering, Filtering, Sorting & Modal
+  // 8. Repository Explorer Rendering, Filtering, Sorting & Modal
   // --------------------------------------------------------------------------
   const repoGrid = document.getElementById("repo-grid");
   const searchInput = document.getElementById("repo-search");
@@ -1008,22 +1415,71 @@
   const modalTree = document.getElementById("modal-repo-tree");
   const modalLink = document.getElementById("modal-repo-link");
   const modalCloseBtn = document.getElementById("modal-close-btn");
+  let lastFocusedTrigger = null;
+
+  async function loadLiveRepoTree(repo) {
+    modalTree.textContent = t("modal_tree_loading");
+    try {
+      const res = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${encodeURIComponent(repo.name)}/contents`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const items = await res.json();
+      if (!Array.isArray(items) || items.length === 0) throw new Error("Empty tree");
+
+      const sorted = [...items].sort((a, b) => {
+        if (a.type !== b.type) return a.type === "dir" ? -1 : 1;
+        return a.name.localeCompare(b.name);
+      });
+
+      const lines = [`${repo.name}/`];
+      sorted.forEach((item, idx) => {
+        const prefix = idx === sorted.length - 1 ? "└── " : "├── ";
+        const suffix = item.type === "dir" ? "/" : item.size ? ` (${formatBytes(item.size)})` : "";
+        lines.push(`${prefix}${item.name}${suffix}`);
+      });
+
+      repo.tree = lines.join("\n");
+      cachedTrees[repo.name] = repo.tree;
+      persistCacheSnapshot();
+
+      if (!modal.hasAttribute("hidden") && modal.dataset.activeRepo === repo.name) {
+        modalTree.textContent = repo.tree;
+      }
+    } catch (_) {
+      if (!modal.hasAttribute("hidden") && modal.dataset.activeRepo === repo.name) {
+        modalTree.textContent = t("modal_tree_unavailable");
+      }
+    }
+  }
 
   function openRepoModal(repo) {
+    lastFocusedTrigger = document.activeElement;
+    modal.dataset.activeRepo = repo.name;
     modalTitle.textContent = repo.name;
     modalLang.textContent = `${repo.language} · ${repo.license} · ${repo.sizeLabel}`;
     modalDesc.textContent = repo.desc[currentLang] || repo.desc.en;
-    modalTree.textContent = repo.tree;
     modalLink.href = repo.url;
     modal.removeAttribute("hidden");
     modalCloseBtn.focus();
+
+    if (repo.tree) {
+      modalTree.textContent = repo.tree;
+    } else if (cachedTrees[repo.name]) {
+      repo.tree = cachedTrees[repo.name];
+      modalTree.textContent = repo.tree;
+    } else {
+      loadLiveRepoTree(repo);
+    }
   }
 
   function closeRepoModal() {
     modal.setAttribute("hidden", "");
+    delete modal.dataset.activeRepo;
+    if (lastFocusedTrigger && typeof lastFocusedTrigger.focus === "function") {
+      lastFocusedTrigger.focus();
+      lastFocusedTrigger = null;
+    }
   }
 
-  // Repository explorer and modal only exist on repositories.html
   if (modal && modalCloseBtn) {
     modalCloseBtn.addEventListener("click", closeRepoModal);
     modal.addEventListener("click", (e) => {
@@ -1036,7 +1492,6 @@
     });
   }
 
-  // Polish versions of each repository's highlight bullets
   const HIGHLIGHTS_PL = {
     AzamiOS: [
       "x86_64 Long Mode (PML4) · bootloader Limine BIOS/UEFI",
@@ -1045,7 +1500,7 @@
       "VirtIO, Intel e1000, RTL8139/8169, xHCI USB 3.x, Intel HDA, azwm + X11"
     ],
     "usoschecker-public": [
-      "Android 12+ (APK), Windows (MSI/ZIP) i Linux (DEB) — 24 opublikowane wydania",
+      "Android 12+ (APK), Windows (MSI/ZIP) i Linux (DEB), 24 opublikowane wydania",
       "Panel Dzisiaj, wykrywanie kolizji w planie i eksport kalendarza .ics",
       "Synchronizacja zadań, ocen i wiadomości z Platona + historia zmian przed/po",
       "Bezpieczeństwo bez wspólnego sekretu (Android Keystore) · języki PL / EN / UK"
@@ -1096,10 +1551,12 @@
     const dict = I18N[currentLang] || I18N.en;
     const q = currentSearch.trim().toLowerCase();
 
-    const filtered = PUBLIC_REPOS.filter((r) => {
+    const filtered = reposList.filter((r) => {
       if (currentFilter !== "all" && r.category !== currentFilter) return false;
       if (!q) return true;
-      const haystack = `${r.name} ${r.language} ${r.license} ${r.desc.en} ${r.desc.pl} ${r.highlights.join(" ")}`.toLowerCase();
+      const hl = (r.highlights || []).join(" ");
+      const hlPl = (r.highlightsPl || HIGHLIGHTS_PL[r.name] || []).join(" ");
+      const haystack = `${r.name} ${r.language} ${r.license} ${r.desc.en} ${r.desc.pl} ${hl} ${hlPl}`.toLowerCase();
       return haystack.includes(q);
     });
 
@@ -1121,22 +1578,28 @@
         ? `Release ${repo.releaseTag}`
         : repo.license;
 
-      const highlights = (currentLang === "pl" && HIGHLIGHTS_PL[repo.name]) || repo.highlights;
+      const highlights = currentLang === "pl"
+        ? (repo.highlightsPl || HIGHLIGHTS_PL[repo.name] || repo.highlights)
+        : repo.highlights;
+
       const highlightsHtml = highlights
-        .map((h) => `<li>${h}</li>`)
+        .map((h) => `<li>${repo.isEscapedLive ? escapeHtml(h) : h}</li>`)
         .join("");
+
+      const rawDesc = repo.desc[currentLang] || repo.desc.en;
+      const safeDesc = repo.isEscapedLive ? escapeHtml(rawDesc) : rawDesc;
 
       card.innerHTML = `
         <div>
           <div class="repo-card-header">
             <div class="repo-name-wrap">
-              <a href="${repo.url}" target="_blank" rel="noopener noreferrer" class="repo-name">${repo.name}</a>
-              <span class="repo-kind-badge">${badgeText}</span>
+              <a href="${escapeHtml(repo.url)}" target="_blank" rel="noopener noreferrer" class="repo-name">${escapeHtml(repo.name)}</a>
+              <span class="repo-kind-badge">${escapeHtml(badgeText)}</span>
             </div>
-            <span class="mono" style="font-size: 0.75rem; color: var(--text-muted);">${repo.updatedAt}</span>
+            <span class="repo-date">${escapeHtml(repo.updatedAt)}</span>
           </div>
 
-          <p class="repo-desc">${repo.desc[currentLang] || repo.desc.en}</p>
+          <p class="repo-desc">${safeDesc}</p>
 
           <ul class="repo-highlights">
             ${highlightsHtml}
@@ -1146,18 +1609,18 @@
         <div class="repo-footer">
           <div class="repo-meta-left">
             <span class="lang-pill">
-              <span class="lang-dot" style="background: ${repo.langColor};"></span>
-              <span>${repo.language}</span>
+              <span class="lang-dot"></span>
+              <span>${escapeHtml(repo.language)}</span>
             </span>
-            <span>${repo.sizeLabel}</span>
+            <span>${escapeHtml(repo.sizeLabel)}</span>
             ${repo.stars > 0 ? `<span>★ ${repo.stars}</span>` : ""}
           </div>
 
           <div class="repo-actions">
-            <button type="button" class="repo-action-link" data-inspect-repo="${repo.name}">
+            <button type="button" class="repo-action-link" data-inspect-repo="${escapeHtml(repo.name)}">
               <span>${dict.inspect_btn}</span>
             </button>
-            <a href="${repo.url}" target="_blank" rel="noopener noreferrer" class="repo-action-link">
+            <a href="${escapeHtml(repo.url)}" target="_blank" rel="noopener noreferrer" class="repo-action-link">
               <span>${dict.source_btn} ↗</span>
             </a>
           </div>
@@ -1195,54 +1658,146 @@
     });
   }
 
-  // Initial render
-  applyLanguage(currentLang);
+  // --------------------------------------------------------------------------
+  // 9. Cache Hydration & Live GitHub API Synchronization
+  // --------------------------------------------------------------------------
+  let lastSnapshotPayload = null;
 
-  // --------------------------------------------------------------------------
-  // 8. Live GitHub API Hydration (Updates Stars, Pushes & Releases Live)
-  // --------------------------------------------------------------------------
+  function readCacheSnapshot() {
+    try {
+      const raw = localStorage.getItem(GH_CACHE_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  function persistCacheSnapshot(payload) {
+    if (payload) lastSnapshotPayload = payload;
+    if (!lastSnapshotPayload) return;
+    try {
+      localStorage.setItem(GH_CACHE_KEY, JSON.stringify({
+        ...lastSnapshotPayload,
+        trees: cachedTrees
+      }));
+    } catch (_) {
+      // Storage blocked or quota exceeded
+    }
+  }
+
+  function applyGitHubSnapshot(snapshot, isFresh) {
+    if (!snapshot || !Array.isArray(snapshot.liveRepos)) return;
+
+    if (snapshot.user) profileData = snapshot.user;
+    if (typeof snapshot.releaseCount === "number" && snapshot.releaseCount > 0) {
+      usosReleaseCount = snapshot.releaseCount;
+    }
+    if (snapshot.trees && typeof snapshot.trees === "object") {
+      cachedTrees = { ...snapshot.trees, ...cachedTrees };
+    }
+
+    const extraLanguages = snapshot.extraLanguages || {};
+    const releaseTag = snapshot.releaseTag;
+
+    const merged = snapshot.liveRepos.map((live) => {
+      const curated = CURATED_BY_NAME.get(live.name.toLowerCase()) || null;
+      const langBytes = extraLanguages[live.name] || null;
+      const entry = buildRepoFromGitHub(live, curated, langBytes);
+      if (entry.name === "usoschecker-public" && releaseTag) {
+        entry.releaseTag = releaseTag;
+      }
+      return entry;
+    });
+
+    // Preserve any curated repo missing from the API response (e.g. partial responses)
+    const seen = new Set(merged.map((r) => r.name.toLowerCase()));
+    CURATED_REPOS.forEach((curated) => {
+      if (!seen.has(curated.name.toLowerCase())) {
+        merged.push(curated);
+      }
+    });
+
+    reposList = merged;
+
+    if (releaseTag) {
+      const btnText = document.getElementById("usos-release-btn-text");
+      if (btnText) btnText.textContent = releaseTag;
+    }
+
+    const lastPush = snapshot.liveRepos.map((r) => r.pushed_at).filter(Boolean).sort().pop();
+    if (isFresh && lastPush) {
+      liveState = { state: "live", lastPush };
+    }
+
+    updateDynamicCounts();
+    updateProfileAndTelemetry();
+    renderRepositories();
+    renderLiveStatus();
+  }
+
+  async function fetchJson(url) {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`GitHub API ${res.status}`);
+    return res.json();
+  }
+
   async function syncWithGitHubApi() {
     try {
-      const res = await fetch("https://api.github.com/users/a0w-svg/repos?per_page=100");
-      if (!res.ok) throw new Error(`GitHub API ${res.status}`);
-      const liveRepos = await res.json();
+      const [userResult, reposResult, releasesResult] = await Promise.allSettled([
+        fetchJson(`https://api.github.com/users/${GITHUB_USER}`),
+        fetchJson(`https://api.github.com/users/${GITHUB_USER}/repos?per_page=100&sort=updated`),
+        fetchJson(`https://api.github.com/repos/${GITHUB_USER}/usoschecker-public/releases?per_page=100`)
+      ]);
 
-      // Most recent push across all public repos drives the hero status
-      const lastPush = liveRepos.map((r) => r.pushed_at).filter(Boolean).sort().pop();
-      liveState = lastPush ? { state: "live", lastPush } : { state: "offline", lastPush: null };
-      renderLiveStatus();
+      if (reposResult.status !== "fulfilled" || !Array.isArray(reposResult.value)) {
+        throw new Error("Unable to fetch public repositories");
+      }
 
-      let updatedCount = 0;
-      liveRepos.forEach((live) => {
-        const match = PUBLIC_REPOS.find((r) => r.name.toLowerCase() === live.name.toLowerCase());
-        if (match) {
-          match.stars = live.stargazers_count || match.stars;
-          if (live.pushed_at) {
-            match.updatedAt = live.pushed_at.slice(0, 10);
-          }
-          updatedCount++;
-        }
+      const user = userResult.status === "fulfilled" ? userResult.value : profileData;
+      const liveRepos = reposResult.value;
+
+      let releaseTag = null;
+      let releaseCount = usosReleaseCount;
+      if (releasesResult.status === "fulfilled" && Array.isArray(releasesResult.value) && releasesResult.value.length > 0) {
+        releaseCount = releasesResult.value.length;
+        releaseTag = releasesResult.value[0].tag_name || null;
+      }
+
+      const extraLanguages = {};
+      const langsToFetch = liveRepos.filter((live) => {
+        const curated = CURATED_BY_NAME.get(live.name.toLowerCase());
+        if (!curated) return true;
+        const pushedDate = live.pushed_at ? live.pushed_at.slice(0, 10) : "";
+        return pushedDate > curated.updatedAt;
       });
 
-      if (updatedCount > 0) {
-        renderRepositories();
+      if (langsToFetch.length > 0) {
+        const langResponses = await Promise.allSettled(
+          langsToFetch.map((live) =>
+            fetchJson(`https://api.github.com/repos/${GITHUB_USER}/${encodeURIComponent(live.name)}/languages`)
+              .then((data) => ({ name: live.name, data }))
+          )
+        );
+        langResponses.forEach((result) => {
+          if (result.status === "fulfilled" && result.value) {
+            extraLanguages[result.value.name] = result.value.data;
+          }
+        });
       }
 
-      // Check latest release of usoschecker-public
-      const relRes = await fetch("https://api.github.com/repos/a0w-svg/usoschecker-public/releases/latest");
-      if (relRes.ok) {
-        const rel = await relRes.json();
-        if (rel && rel.tag_name) {
-          const usos = PUBLIC_REPOS.find((r) => r.name === "usoschecker-public");
-          if (usos) usos.releaseTag = rel.tag_name;
-          const btnText = document.getElementById("usos-release-btn-text");
-          if (btnText) btnText.textContent = rel.tag_name;
-          renderRepositories();
-        }
-      }
+      const snapshot = {
+        user,
+        liveRepos,
+        extraLanguages,
+        releaseTag,
+        releaseCount,
+        ts: Date.now()
+      };
+
+      lastSnapshotPayload = snapshot;
+      persistCacheSnapshot(snapshot);
+      applyGitHubSnapshot(snapshot, true);
     } catch (_) {
-      // Offline or rate-limited: the built-in repository data stays, and the
-      // status says so instead of pretending to be live.
       if (liveState.state !== "live") {
         liveState = { state: "offline", lastPush: null };
         renderLiveStatus();
@@ -1250,6 +1805,19 @@
     }
   }
 
-  syncWithGitHubApi();
-})();
+  // Initial render from baseline, hydrate cached GitHub snapshot immediately if present,
+  // and refresh in the background whenever the cache is missing or stale.
+  applyLanguage(currentLang);
 
+  const cachedSnapshot = readCacheSnapshot();
+  if (cachedSnapshot) {
+    lastSnapshotPayload = cachedSnapshot;
+    const isFresh = typeof cachedSnapshot.ts === "number" && (Date.now() - cachedSnapshot.ts) < GH_CACHE_TTL_MS;
+    applyGitHubSnapshot(cachedSnapshot, isFresh);
+    if (!isFresh) {
+      syncWithGitHubApi();
+    }
+  } else {
+    syncWithGitHubApi();
+  }
+})();
