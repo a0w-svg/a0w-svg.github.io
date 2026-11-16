@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title data-i18n="title_home">a0w-svg (a0aRd) — Systems &amp; Software Engineering</title>
+  <title data-i18n="title_home">a0w-svg (a0aRd) · Systems &amp; Software Engineering</title>
   <meta name="description" content="Portfolio of a0w-svg (a0aRd): AzamiOS, USOS Checker, Hana_brainfuck and more." />
   <meta name="theme-color" content="#0f1012" />
 
@@ -15,95 +15,86 @@
     } catch (e) {}
   </script>
 
-  <meta property="og:title" content="a0w-svg (a0aRd) — Systems &amp; Software Engineering" />
+  <meta property="og:title" content="a0w-svg (a0aRd) · Systems &amp; Software Engineering" />
   <meta property="og:description" content="64-bit x86_64 OS development (AzamiOS), cross-platform Kotlin applications (USOS Checker), C/C++ interpreters, and security writeups." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://avatars.githubusercontent.com/u/24978910?v=4" />
 
-  <!-- Google Fonts: Inter + JetBrains Mono -->
+  <!-- Google Fonts: Bricolage Grotesque + Public Sans + JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Public+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <a href="#main-content" class="skip-link" data-i18n="skip_to_content">Skip to main content</a>
 
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="header-brand">
+        <img src="https://avatars.githubusercontent.com/u/24978910?v=4" alt="a0w-svg avatar" class="header-avatar" width="36" height="36" />
+        <div class="header-identity">
+          <span class="header-handle">@a0w-svg · a0aRd</span>
+          <span class="header-meta" data-i18n="hero_location">Poland · GitHub since Jan 2017</span>
+        </div>
+      </div>
+
+      <nav class="header-nav" aria-label="Primary">
+        <a href="#projects" data-i18n="nav_projects">Projects</a>
+        <a href="#repositories" data-i18n="nav_repos">Repositories</a>
+        <a href="#about" data-i18n="nav_about">About</a>
+        <a href="#contact" data-i18n="nav_contact">Contact</a>
+      </nav>
+
+      <p class="live-status" id="live-status" data-state="loading">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span id="live-status-text">Checking GitHub…</span>
+      </p>
+    </div>
+  </header>
+
   <main id="main-content">
     <section class="hero">
       <div class="container">
-          <p class="live-status" id="live-status" data-state="loading">
-            <span class="status-dot" aria-hidden="true"></span>
-            <span id="live-status-text">Checking GitHub…</span>
-          </p>
+        <h1 class="hero-title" data-i18n="hero_heading">
+          x86_64 kernels in C and Assembly. Native Android and desktop apps in Kotlin.
+        </h1>
 
-          <div class="hero-identity">
-            <img src="https://avatars.githubusercontent.com/u/24978910?v=4" alt="a0w-svg avatar" class="hero-avatar" width="72" height="72" />
-            <div>
-              <div class="hero-handle">@a0w-svg · a0aRd</div>
-              <div style="font-size: 0.9rem; color: var(--text-muted);" data-i18n="hero_location">Poland · On GitHub since Jan 2017</div>
-            </div>
+        <p class="hero-lead" data-i18n="hero_lead">
+          I build operating systems from bare metal (AzamiOS, JakOS) and multi-platform Kotlin applications for Android, Windows, and Linux (USOS&#160;Checker).
+        </p>
+
+        <div class="hero-cta-row">
+          <a href="#projects" class="btn btn-primary" data-i18n="cta_projects">See projects</a>
+          <a href="https://github.com/a0w-svg" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" data-i18n="cta_github">GitHub profile ↗</a>
+        </div>
+
+        <div class="telemetry-ledger">
+          <div class="ledger-top">
+            <span class="ledger-summary" data-i18n="ledger_summary">11 public repositories · 11.72 MB source · 24 releases · 100+ Linux x86_64 syscalls</span>
+            <span class="ledger-caption" data-i18n="telemetry_title">Public Codebase Distribution (Bytes)</span>
           </div>
-
-          <h1 class="hero-title" data-i18n="hero_heading">
-            Building from <span class="gradient-text">x86_64 Kernel Space</span> to Cross-Platform Native Apps.
-          </h1>
-
-          <p class="hero-lead" data-i18n="hero_lead">
-            Systems and application developer crafting operating systems from bare metal in C &amp; Assembly (<strong>AzamiOS</strong>, <strong>JakOS</strong>) and multi-platform Kotlin software for Android, Windows, and Linux (<strong>USOS Checker</strong>).
-          </p>
-
-          <div class="hero-cta-row">
-            <a href="#projects" class="btn btn-primary" data-i18n="cta_projects">See projects</a>
-            <a href="https://github.com/a0w-svg" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" data-i18n="cta_github">GitHub profile ↗</a>
+          <div class="lang-bar" role="img" aria-label="Language distribution: 74.0% C, 19.6% Kotlin, 3.2% Python, 2.2% Makefile and Shell, 1.0% Assembly, C++, and C#">
+            <div class="lang-segment seg-c" title="C: 8.67 MB (74.0%)"></div>
+            <div class="lang-segment seg-kt" title="Kotlin: 2.29 MB (19.6%)"></div>
+            <div class="lang-segment seg-py" title="Python: 372 KB (3.2%)"></div>
+            <div class="lang-segment seg-sh" title="Makefile &amp; Shell: 286 KB (2.2%)"></div>
+            <div class="lang-segment seg-asm" title="Assembly, C++, C#: 118 KB (1.0%)"></div>
           </div>
-
-          <div class="hero-metrics">
-            <div class="metric-card">
-              <div class="metric-value" id="metric-repos">11</div>
-              <div class="metric-label" data-i18n="metric_public_repos">Public Repositories</div>
-            </div>
-            <div class="metric-card">
-              <div class="metric-value">11.7 MB</div>
-              <div class="metric-label" data-i18n="metric_code_volume">Public Source Volume</div>
-            </div>
-            <div class="metric-card">
-              <div class="metric-value" id="metric-releases">24</div>
-              <div class="metric-label" data-i18n="metric_releases">Published Releases</div>
-            </div>
-            <div class="metric-card">
-              <div class="metric-value">100+</div>
-              <div class="metric-label" data-i18n="metric_syscalls">Linux x86_64 Syscalls</div>
-            </div>
+          <div class="lang-legend">
+            <span class="lang-pill"><span class="lang-dot dot-c"></span>C (8.67 MB)</span>
+            <span class="lang-pill"><span class="lang-dot dot-kt"></span>Kotlin (2.29 MB)</span>
+            <span class="lang-pill"><span class="lang-dot dot-py"></span>Python (372 KB)</span>
+            <span class="lang-pill"><span class="lang-dot dot-sh"></span>Make/Sh (286 KB)</span>
+            <span class="lang-pill"><span class="lang-dot dot-asm"></span>ASM/C++/C# (118 KB)</span>
           </div>
-
-          <div class="lang-telemetry">
-            <div class="lang-telemetry-header">
-              <span data-i18n="telemetry_title">Public Codebase Distribution (Bytes)</span>
-              <span data-i18n="telemetry_total">~11.72 MB total</span>
-            </div>
-            <div class="lang-bar" role="img" aria-label="Language distribution: 74.1% C, 19.6% Kotlin, 3.2% Python, 1.8% Makefile, 0.6% Assembly, 0.7% C++, C# and Shell">
-              <div class="lang-segment" style="width: 73.5%; background: #38bdf8;" title="C: 8.67 MB (74.0%)"></div>
-              <div class="lang-segment" style="width: 19.6%; background: #a855f7;" title="Kotlin: 2.29 MB (19.6%)"></div>
-              <div class="lang-segment" style="width: 3.2%; background: #eab308;" title="Python: 372 KB (3.2%)"></div>
-              <div class="lang-segment" style="width: 1.9%; background: #22c55e;" title="Makefile &amp; Shell: 286 KB (2.4%)"></div>
-              <div class="lang-segment" style="width: 1.8%; background: #f43f5e;" title="Assembly, C++, C#: 118 KB (1.0%)"></div>
-            </div>
-            <div class="lang-legend">
-              <span class="lang-pill"><span class="lang-dot" style="background: #38bdf8;"></span>C (8.67 MB)</span>
-              <span class="lang-pill"><span class="lang-dot" style="background: #a855f7;"></span>Kotlin (2.29 MB)</span>
-              <span class="lang-pill"><span class="lang-dot" style="background: #eab308;"></span>Python (372 KB)</span>
-              <span class="lang-pill"><span class="lang-dot" style="background: #22c55e;"></span>Make/Sh (286 KB)</span>
-              <span class="lang-pill"><span class="lang-dot" style="background: #f43f5e;"></span>ASM/C++/C# (118 KB)</span>
-            </div>
-          </div>
+        </div>
       </div>
     </section>
 
     <section id="projects" class="section">
       <div class="container">
-        <div class="section-eyebrow" data-i18n="home_projects_eyebrow">Selected work</div>
         <h2 class="section-title" data-i18n="home_projects_title">Projects</h2>
 
         <div class="project-switch" role="tablist" aria-label="Projects">
@@ -113,214 +104,191 @@
         </div>
 
         <div id="project-azamios" class="project-panel" role="tabpanel" aria-labelledby="ptab-azamios">
-        <div class="section-header">
-          <div>
-            <div class="section-eyebrow">
-              <span data-i18n="azami_eyebrow">Flagship Systems Engineering · a0w-svg/AzamiOS</span>
-            </div>
-            <h3 class="section-title project-title" data-i18n="azami_title">AzamiOS — 64-Bit x86_64 Operating System</h3>
-            <p class="section-subtitle" data-i18n="azami_subtitle">
-              A 64-bit Long Mode operating system built from scratch featuring a Unix FHS hierarchy, unmodified Linux x86_64 ELF binary execution, a custom POSIX freestanding C library, hardware drivers, and the Azami Window Manager (<code>azwm</code>).
-            </p>
-          </div>
-          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-            <a href="https://github.com/a0w-svg/AzamiOS" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                <polyline points="15 3 21 3 21 9"></polyline>
-                <line x1="10" y1="14" x2="21" y2="3"></line>
-              </svg>
-              <span>a0w-svg/AzamiOS</span>
-            </a>
-            <a href="https://github.com/a0w-svg/JakOS" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
-              <span data-i18n="azami_predecessor">Predecessor: JakOS (x86-32)</span>
-            </a>
-          </div>
-        </div>
-
-        <div class="flagship-shell">
-          <div class="flagship-top">
+          <div class="section-header">
             <div>
-              <h3 style="font-size: 1.25rem; font-weight: 700;" data-i18n="azami_arch_heading">Kernel, Syscall ABI &amp; Userspace Architecture</h3>
-              <div class="badge-row">
-                <span class="tech-badge emerald">x86_64 Long Mode (PML4)</span>
-                <span class="tech-badge emerald">Linux Syscall ABI (82-check probe)</span>
-                <span class="tech-badge">Limine UEFI / BIOS</span>
-                <span class="tech-badge">40+ Custom POSIX libc Headers</span>
-                <span class="tech-badge">VirtIO + xHCI USB 3.x + e1000/RTL8169</span>
-                <span class="tech-badge">azwm Compositor + X11 Protocol</span>
-                <span class="tech-badge">GPL-2.0 Kernel / BSD-3 Userspace</span>
-              </div>
+              <h3 class="project-title" data-i18n="azami_title">AzamiOS: 64-Bit x86_64 Operating System</h3>
+              <p class="section-subtitle" data-i18n="azami_subtitle">
+                A 64-bit Long Mode operating system built from scratch with a Unix FHS hierarchy, unmodified Linux x86_64 ELF binary execution, a custom POSIX freestanding C library, hardware drivers, and the Azami Window Manager (<code>azwm</code>).
+              </p>
+            </div>
+            <div class="section-actions">
+              <a href="https://github.com/a0w-svg/AzamiOS" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+                <span>a0w-svg/AzamiOS</span>
+              </a>
+              <a href="https://github.com/a0w-svg/JakOS" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+                <span data-i18n="azami_predecessor">Predecessor: JakOS (x86-32)</span>
+              </a>
             </div>
           </div>
+
+          <dl class="spec-strip">
+            <div class="spec-item">
+              <dt data-i18n="azami_spec1_k">Architecture</dt>
+              <dd data-i18n="azami_spec1_v">x86_64 Long Mode (PML4)</dd>
+            </div>
+            <div class="spec-item">
+              <dt data-i18n="azami_spec2_k">Syscall ABI</dt>
+              <dd data-i18n="azami_spec2_v">Linux System V AMD64 (82-check probe)</dd>
+            </div>
+            <div class="spec-item">
+              <dt data-i18n="azami_spec3_k">Userspace</dt>
+              <dd data-i18n="azami_spec3_v">40+ POSIX libc headers · azwm + X11</dd>
+            </div>
+            <div class="spec-item">
+              <dt data-i18n="azami_spec4_k">Boot &amp; License</dt>
+              <dd data-i18n="azami_spec4_v">Limine UEFI/BIOS · GPL-2.0 / BSD-3</dd>
+            </div>
+          </dl>
 
           <div class="azami-grid">
-            <div>
-              <div class="subsystem-tabs" role="tablist" aria-label="AzamiOS Subsystems">
-                <button type="button" class="tab-btn" role="tab" aria-selected="true" aria-controls="panel-kernel" id="tab-kernel" data-i18n="tab_kernel">Kernel &amp; Linux ABI</button>
-                <button type="button" class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-drivers" id="tab-drivers" data-i18n="tab_drivers">Drivers &amp; Net</button>
-                <button type="button" class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-libc" id="tab-libc" data-i18n="tab_libc">Custom libc &amp; Ports</button>
-                <button type="button" class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-gui" id="tab-gui" data-i18n="tab_gui">azwm GUI &amp; VFS</button>
-              </div>
+            <div class="subsystem-tabs" role="tablist" aria-label="AzamiOS Subsystems">
+              <button type="button" class="tab-btn" role="tab" aria-selected="true" aria-controls="panel-kernel" id="tab-kernel" data-i18n="tab_kernel">Kernel &amp; Linux ABI</button>
+              <button type="button" class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-drivers" id="tab-drivers" tabindex="-1" data-i18n="tab_drivers">Drivers &amp; Net</button>
+              <button type="button" class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-libc" id="tab-libc" tabindex="-1" data-i18n="tab_libc">Custom libc &amp; Ports</button>
+              <button type="button" class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-gui" id="tab-gui" tabindex="-1" data-i18n="tab_gui">azwm GUI &amp; VFS</button>
+            </div>
 
-              <!-- Panel 1: Kernel -->
-              <div id="panel-kernel" class="subsystem-panel" role="tabpanel" aria-labelledby="tab-kernel">
-                <h4 data-i18n="k_h">Preemptive x86_64 Kernel &amp; Unmodified Linux Binaries</h4>
-                <p style="font-size: 0.88rem; color: var(--text-secondary);" data-i18n="k_p">
-                  Implements the System V AMD64 Linux <code>syscall</code> ABI so static binaries compiled by an ordinary Linux toolchain execute directly without shims or source patches.
-                </p>
-                <ul class="subsystem-list">
-                  <li data-i18n="k_1"><strong>Memory &amp; Paging:</strong> Physical Memory Manager (PMM), slab <code>kmalloc</code>, 4-level PML4 paging with <code>mmap</code>/<code>munmap</code> and POPCNT bitmap acceleration.</li>
-                  <li data-i18n="k_2"><strong>Scheduling &amp; Signals:</strong> Preemptive per-CPU run queues, ELF64 loader, POSIX threads, job control (<code>SIGSTOP</code>/<code>SIGTSTP</code>/<code>SIGCONT</code>, <code>wait4</code>).</li>
-                  <li data-i18n="k_3"><strong>Debugging &amp; PMU:</strong> Full <code>ptrace(2)</code> (<code>TRACEME</code>, <code>ATTACH</code>, <code>SEIZE</code>, <code>int3</code>, single-step, COW-safe <code>PEEK</code>/<code>POKE</code>) + <code>perf_event_open(2)</code> hardware PMU counters.</li>
-                  <li data-i18n="k_4"><strong> ~20 ns vDSO Timekeeping:</strong> KVM pvclock / VMware TSC clocksource with sub-tick one-shot TSC-deadline interrupts for 1 ms precision <code>nanosleep</code>.</li>
-                  <li data-i18n="k_5"><strong>CPU Security &amp; Extensions:</strong> SMEP, SMAP, UMIP, PKU, NX, FSGSBASE, PCID, XSAVE/XSAVEC, RDRAND/RDSEED, SSE4.2 CRC-32C dentry hashing, and exception-fixup boot probing.</li>
-                </ul>
-              </div>
+            <!-- Panel 1: Kernel -->
+            <div id="panel-kernel" class="subsystem-panel" role="tabpanel" aria-labelledby="tab-kernel">
+              <h4 data-i18n="k_h">Preemptive x86_64 Kernel &amp; Unmodified Linux Binaries</h4>
+              <p data-i18n="k_p">
+                Implements the System V AMD64 Linux <code>syscall</code> ABI so static binaries compiled by an ordinary Linux toolchain execute directly without shims or source patches.
+              </p>
+              <ul class="subsystem-list">
+                <li data-i18n="k_1"><strong>Memory &amp; Paging:</strong> Physical Memory Manager (PMM), slab <code>kmalloc</code>, 4-level PML4 paging with <code>mmap</code>/<code>munmap</code> and POPCNT bitmap acceleration.</li>
+                <li data-i18n="k_2"><strong>Scheduling &amp; Signals:</strong> Preemptive per-CPU run queues, ELF64 loader, POSIX threads, job control (<code>SIGSTOP</code>/<code>SIGTSTP</code>/<code>SIGCONT</code>, <code>wait4</code>).</li>
+                <li data-i18n="k_3"><strong>Debugging &amp; PMU:</strong> Full <code>ptrace(2)</code> (<code>TRACEME</code>, <code>ATTACH</code>, <code>SEIZE</code>, <code>int3</code>, single-step, COW-safe <code>PEEK</code>/<code>POKE</code>) + <code>perf_event_open(2)</code> hardware PMU counters.</li>
+                <li data-i18n="k_4"><strong>~20 ns vDSO Timekeeping:</strong> KVM pvclock / VMware TSC clocksource with sub-tick one-shot TSC-deadline interrupts for 1 ms precision <code>nanosleep</code>.</li>
+                <li data-i18n="k_5"><strong>CPU Security &amp; Extensions:</strong> SMEP, SMAP, UMIP, PKU, NX, FSGSBASE, PCID, XSAVE/XSAVEC, RDRAND/RDSEED, SSE4.2 CRC-32C dentry hashing, and exception-fixup boot probing.</li>
+              </ul>
+            </div>
 
-              <!-- Panel 2: Drivers -->
-              <div id="panel-drivers" class="subsystem-panel" role="tabpanel" aria-labelledby="tab-drivers" hidden>
-                <h4 data-i18n="d_h">Hardware Abstraction Layer (HAL), Storage, USB 3.x &amp; Network Stack</h4>
-                <p style="font-size: 0.88rem; color: var(--text-secondary);" data-i18n="d_p">
-                  Modular PCI bus enumeration with MSI/INTx routing, I/O APIC + LAPIC SMP interrupts, and paravirtual + physical device drivers.
-                </p>
-                <ul class="subsystem-list">
-                  <li data-i18n="d_1"><strong>Networking Cards:</strong> Intel <code>e1000</code> / <code>e100</code>, Realtek <code>RTL8139</code> / <code>RTL8169</code> (Gigabit), AMD PCNet, VMware <code>VMXNET3</code>, and <code>VirtIO-Net</code>.</li>
-                  <li data-i18n="d_2"><strong>TCP/IP Stack:</strong> Full Ethernet, ARP, IPv4, ICMPv4, UDP, TCP, BSD sockets, <code>dhcpcd</code>, <code>ntpd</code>, <code>httpd</code>, <code>curl</code>, and <code>nslookup</code>.</li>
-                  <li data-i18n="d_3"><strong>USB &amp; Input:</strong> <code>xHCI</code> (USB 3.x) with BIOS handoff, Intel PCH port routing, hot-plug, USB HID keyboards/mice/tablets, PS/2, and <code>virtio-input</code>.</li>
-                  <li data-i18n="d_4"><strong>Audio &amp; Video:</strong> Intel HDA, AC'97, ES1370, MPU-401 MIDI, PC Speaker; VirtIO GPU, BGA Display, and Framebuffer DRM.</li>
-                  <li data-i18n="d_5"><strong>Storage:</strong> ATA IDE, Floppy DMA/FDC, VirtIO Block, and VirtIO 9P host filesystem sharing.</li>
-                </ul>
-              </div>
+            <!-- Panel 2: Drivers -->
+            <div id="panel-drivers" class="subsystem-panel" role="tabpanel" aria-labelledby="tab-drivers" hidden>
+              <h4 data-i18n="d_h">Hardware Abstraction Layer (HAL), Storage, USB 3.x &amp; Network Stack</h4>
+              <p data-i18n="d_p">
+                Modular PCI bus enumeration with MSI/INTx routing, I/O APIC + LAPIC SMP interrupts, and paravirtual + physical device drivers.
+              </p>
+              <ul class="subsystem-list">
+                <li data-i18n="d_1"><strong>Networking Cards:</strong> Intel <code>e1000</code> / <code>e100</code>, Realtek <code>RTL8139</code> / <code>RTL8169</code> (Gigabit), AMD PCNet, VMware <code>VMXNET3</code>, and <code>VirtIO-Net</code>.</li>
+                <li data-i18n="d_2"><strong>TCP/IP Stack:</strong> Full Ethernet, ARP, IPv4, ICMPv4, UDP, TCP, BSD sockets, <code>dhcpcd</code>, <code>ntpd</code>, <code>httpd</code>, <code>curl</code>, and <code>nslookup</code>.</li>
+                <li data-i18n="d_3"><strong>USB &amp; Input:</strong> <code>xHCI</code> (USB 3.x) with BIOS handoff, Intel PCH port routing, hot-plug, USB HID keyboards/mice/tablets, PS/2, and <code>virtio-input</code>.</li>
+                <li data-i18n="d_4"><strong>Audio &amp; Video:</strong> Intel HDA, AC'97, ES1370, MPU-401 MIDI, PC Speaker; VirtIO GPU, BGA Display, and Framebuffer DRM.</li>
+                <li data-i18n="d_5"><strong>Storage:</strong> ATA IDE, Floppy DMA/FDC, VirtIO Block, and VirtIO 9P host filesystem sharing.</li>
+              </ul>
+            </div>
 
-              <!-- Panel 3: libc -->
-              <div id="panel-libc" class="subsystem-panel" role="tabpanel" aria-labelledby="tab-libc" hidden>
-                <h4 data-i18n="l_h">Freestanding POSIX C Library (<code>userland/libc/</code>) &amp; Ported Packages</h4>
-                <p style="font-size: 0.88rem; color: var(--text-secondary);" data-i18n="l_p">
-                  Zero kernel leakage into userspace, licensed under BSD-3-Clause alongside a rich software ports tree installable via <code>pkg</code>.
-                </p>
-                <ul class="subsystem-list">
-                  <li data-i18n="l_1"><strong>Core POSIX &amp; Linux APIs:</strong> <code>stdio.h</code>, <code>stdlib.h</code>, <code>pthread.h</code>, <code>sys/epoll.h</code>, <code>linux/futex.h</code> (including <code>futex2</code>), <code>sys/statx.h</code>, <code>sys/sendfile.h</code>, <code>spawn.h</code>, <code>mqueue.h</code>, <code>regex.h</code>, <code>ftw.h</code>.</li>
-                  <li data-i18n="l_2"><strong>System Shell &amp; Toolchain:</strong> GNU Bash 5.2 as <code>/bin/sh</code> (plus native <code>azami-sh</code>), TinyCC (<code>tcc</code>) &amp; GNU Make on-device compiler toolchain.</li>
-                  <li data-i18n="l_3"><strong>Ported Ecosystem:</strong> <code>musl 1.2.5</code> + <code>BusyBox 1.36.1</code> (401 applets), Lua, MicroPython, SQLite, <code>jq</code>, <code>gawk</code>, <code>curl</code>, <code>nano</code>, <code>less</code>, <code>tree</code>.</li>
-                </ul>
-              </div>
+            <!-- Panel 3: libc -->
+            <div id="panel-libc" class="subsystem-panel" role="tabpanel" aria-labelledby="tab-libc" hidden>
+              <h4 data-i18n="l_h">Freestanding POSIX C Library (<code>userland/libc/</code>) &amp; Ported Packages</h4>
+              <p data-i18n="l_p">
+                Zero kernel leakage into userspace, licensed under BSD-3-Clause alongside a rich software ports tree installable via <code>pkg</code>.
+              </p>
+              <ul class="subsystem-list">
+                <li data-i18n="l_1"><strong>Core POSIX &amp; Linux APIs:</strong> <code>stdio.h</code>, <code>stdlib.h</code>, <code>pthread.h</code>, <code>sys/epoll.h</code>, <code>linux/futex.h</code> (including <code>futex2</code>), <code>sys/statx.h</code>, <code>sys/sendfile.h</code>, <code>spawn.h</code>, <code>mqueue.h</code>, <code>regex.h</code>, <code>ftw.h</code>.</li>
+                <li data-i18n="l_2"><strong>System Shell &amp; Toolchain:</strong> GNU Bash 5.2 as <code>/bin/sh</code> (plus native <code>azami-sh</code>), TinyCC (<code>tcc</code>) &amp; GNU Make on-device compiler toolchain.</li>
+                <li data-i18n="l_3"><strong>Ported Ecosystem:</strong> <code>musl 1.2.5</code> + <code>BusyBox 1.36.1</code> (401 applets), Lua, MicroPython, SQLite, <code>jq</code>, <code>gawk</code>, <code>curl</code>, <code>nano</code>, <code>less</code>, <code>tree</code>.</li>
+              </ul>
+            </div>
 
-              <!-- Panel 4: GUI & VFS -->
-              <div id="panel-gui" class="subsystem-panel" role="tabpanel" aria-labelledby="tab-gui" hidden>
-                <h4 data-i18n="g_h">Azami Window Manager (<code>azwm</code>), X11 Support &amp; Virtual Filesystem</h4>
-                <p style="font-size: 0.88rem; color: var(--text-secondary);" data-i18n="g_p">
-                  Complete desktop environment over a double-buffered alpha-blending software compositor and Unix FHS root tree.
-                </p>
-                <ul class="subsystem-list">
-                  <li data-i18n="g_1"><strong>Desktop Apps:</strong> <code>azwm</code> window manager, <code>terminal</code>, <code>texteditor</code>, <code>filemanager</code>, <code>sysmon</code>, <code>calculator</code>, <code>paint</code>, and games (<code>minesweeper</code>, <code>2048</code>, <code>snake</code>).</li>
-                  <li data-i18n="g_2"><strong>X11 Client Protocol:</strong> Runs classic X11 clients including <code>xclock</code>, <code>xcalc</code>, <code>xeyes</code>, and <code>xcursor</code>.</li>
-                  <li data-i18n="g_3"><strong>VFS &amp; Filesystems:</strong> <code>ext2</code>, <code>FAT32</code>, <code>ProcFS</code>, <code>SysFS</code>, <code>DevFS</code>, <code>Devpts</code>, <code>PipeFS</code>, and <code>TarFS</code> initrd with POSIX ACLs (<code>getfacl</code>/<code>setfacl</code>).</li>
-                </ul>
-              </div>
+            <!-- Panel 4: GUI & VFS -->
+            <div id="panel-gui" class="subsystem-panel" role="tabpanel" aria-labelledby="tab-gui" hidden>
+              <h4 data-i18n="g_h">Azami Window Manager (<code>azwm</code>), X11 Support &amp; Virtual Filesystem</h4>
+              <p data-i18n="g_p">
+                Complete desktop environment over a double-buffered alpha-blending software compositor and Unix FHS root tree.
+              </p>
+              <ul class="subsystem-list">
+                <li data-i18n="g_1"><strong>Desktop Apps:</strong> <code>azwm</code> window manager, <code>terminal</code>, <code>texteditor</code>, <code>filemanager</code>, <code>sysmon</code>, <code>calculator</code>, <code>paint</code>, and games (<code>minesweeper</code>, <code>2048</code>, <code>snake</code>).</li>
+                <li data-i18n="g_2"><strong>X11 Client Protocol:</strong> Runs classic X11 clients including <code>xclock</code>, <code>xcalc</code>, <code>xeyes</code>, and <code>xcursor</code>.</li>
+                <li data-i18n="g_3"><strong>VFS &amp; Filesystems:</strong> <code>ext2</code>, <code>FAT32</code>, <code>ProcFS</code>, <code>SysFS</code>, <code>DevFS</code>, <code>Devpts</code>, <code>PipeFS</code>, and <code>TarFS</code> initrd with POSIX ACLs (<code>getfacl</code>/<code>setfacl</code>).</li>
+              </ul>
             </div>
           </div>
         </div>
-        </div>
+
         <div id="project-usoschecker" class="project-panel" role="tabpanel" aria-labelledby="ptab-usoschecker" hidden>
-        <div class="section-header">
-          <div>
-            <div class="section-eyebrow cyan">
-              <span data-i18n="usos_eyebrow">Cross-Platform Kotlin App · a0w-svg/usoschecker-public</span>
-            </div>
-            <h3 class="section-title project-title" data-i18n="usos_title">USOS Checker — Android &amp; Desktop Client</h3>
-            <p class="section-subtitle" data-i18n="usos_subtitle">
-              Unofficial USOS &amp; Platon companion for Vistula University students. Native Android 12+ and Desktop (Windows MSI/ZIP &amp; Linux DEB) built with Kotlin across <code>:core</code>, <code>:shared</code>, <code>:app</code>, and <code>:desktopApp</code>.
-            </p>
-          </div>
-
-          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-            <a href="https://github.com/a0w-svg/usoschecker-public/releases/latest" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                <polyline points="7 10 12 15 17 10"></polyline>
-                <line x1="12" y1="15" x2="12" y2="3"></line>
-              </svg>
-              <span><span data-i18n="usos_download">Download latest</span> (<span id="usos-release-btn-text">v1.10.0</span>)</span>
-            </a>
-            <a href="https://usoscheckerdesign.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
-              <span data-i18n="usos_prototype_btn">Interactive UI Prototype</span>
-            </a>
-            <a href="https://github.com/a0w-svg/usoschecker-public" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
-              <span data-i18n="usos_repo_btn">GitHub Repo</span>
-            </a>
-          </div>
-        </div>
-
-        <div class="flagship-shell">
-          <div class="usos-grid">
-            <!-- Left: Key Capabilities & Architecture -->
+          <div class="section-header">
             <div>
-              <div class="badge-row" style="margin-top: 0; margin-bottom: 18px;">
-                <span class="tech-badge cyan">Kotlin (2.29 MB)</span>
-                <span class="tech-badge cyan">Android 12+ APK</span>
-                <span class="tech-badge">Windows x64 MSI / ZIP</span>
-                <span class="tech-badge">Linux DEB</span>
-                <span class="tech-badge">PL / EN / UK Trilingual</span>
-                <span class="tech-badge">MIT License</span>
-              </div>
+              <h3 class="project-title" data-i18n="usos_title">USOS Checker: Android &amp; Desktop Client</h3>
+              <p class="section-subtitle" data-i18n="usos_subtitle">
+                Unofficial USOS &amp; Platon companion for Vistula University students. Native Android 12+ and Desktop (Windows MSI/ZIP &amp; Linux DEB) built with Kotlin across <code>:core</code>, <code>:shared</code>, <code>:app</code>, and <code>:desktopApp</code>.
+              </p>
+            </div>
 
-              <h3 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 10px;" data-i18n="usos_card_heading">
-                Your university day in one place — with local-first privacy.
-              </h3>
-              <p style="font-size: 0.92rem; color: var(--text-secondary);" data-i18n="usos_card_desc">
+            <div class="section-actions">
+              <a href="https://github.com/a0w-svg/usoschecker-public/releases/latest" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                <span><span data-i18n="usos_download">Download latest</span> (<span id="usos-release-btn-text">v1.10.0</span>)</span>
+              </a>
+              <a href="https://usoscheckerdesign.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+                <span data-i18n="usos_prototype_btn">Interactive UI Prototype</span>
+              </a>
+              <a href="https://github.com/a0w-svg/usoschecker-public" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+                <span data-i18n="usos_repo_btn">GitHub Repo</span>
+              </a>
+            </div>
+          </div>
+
+          <dl class="spec-strip">
+            <div class="spec-item">
+              <dt data-i18n="usos_spec1_k">Platforms</dt>
+              <dd data-i18n="usos_spec1_v">Android 12+ APK · Windows MSI/ZIP · Linux DEB</dd>
+            </div>
+            <div class="spec-item">
+              <dt data-i18n="usos_spec2_k">Modules</dt>
+              <dd data-i18n="usos_spec2_v">:core · :shared · :app · :desktopApp</dd>
+            </div>
+            <div class="spec-item">
+              <dt data-i18n="usos_spec3_k">Key Storage</dt>
+              <dd data-i18n="usos_spec3_v">Android Keystore (no shared secret)</dd>
+            </div>
+            <div class="spec-item">
+              <dt data-i18n="usos_spec4_k">Localization &amp; License</dt>
+              <dd data-i18n="usos_spec4_v">PL / EN / UK · MIT License</dd>
+            </div>
+          </dl>
+
+          <div class="usos-grid">
+            <div>
+              <h4 class="usos-lead-heading" data-i18n="usos_card_heading">
+                Local-first university schedule, grades, and Platon LMS sync.
+              </h4>
+              <p class="usos-lead-desc" data-i18n="usos_card_desc">
                 Connects directly to Vistula’s USOS API using per-user keys stored in Android Keystore (no shared Consumer Secret in releases, and your university password never enters the app).
               </p>
 
-              <div class="feature-cards-mini">
-                <div class="mini-feature">
-                  <div class="mini-feature-title">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                      <line x1="16" y1="2" x2="16" y2="6"></line>
-                      <line x1="8" y1="2" x2="8" y2="6"></line>
-                      <line x1="3" y1="10" x2="21" y2="10"></line>
-                    </svg>
-                    <span data-i18n="usos_f1_title">Today &amp; Timetable</span>
-                  </div>
+              <div class="capability-grid">
+                <div class="capability-item">
+                  <h4 class="capability-title" data-i18n="usos_f1_title">Today &amp; Timetable</h4>
                   <p data-i18n="usos_f1_desc">Live class countdown, day/week/agenda views, schedule conflict detector, room &amp; lecturer lookup, and <code>.ics</code> export.</p>
                 </div>
 
-                <div class="mini-feature">
-                  <div class="mini-feature-title">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                      <path d="M12 20V10"></path><path d="M18 20V4"></path><path d="M6 20v-4"></path>
-                    </svg>
-                    <span data-i18n="usos_f2_title">Grades, GPA &amp; Diff History</span>
-                  </div>
+                <div class="capability-item">
+                  <h4 class="capability-title" data-i18n="usos_f2_title">Grades, GPA &amp; Diff History</h4>
                   <p data-i18n="usos_f2_desc">Semester grade breakdowns, interactive GPA calculator, and a before/after <strong>Changes</strong> feed tracking added or modified entries.</p>
                 </div>
 
-                <div class="mini-feature">
-                  <div class="mini-feature-title">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                      <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                      <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-                    </svg>
-                    <span data-i18n="usos_f3_title">Platon LMS Sync</span>
-                  </div>
+                <div class="capability-item">
+                  <h4 class="capability-title" data-i18n="usos_f3_title">Platon LMS Sync</h4>
                   <p data-i18n="usos_f3_desc">Synchronizes assignments, deadlines, course progress, and messages from <code>platon.vistula.edu.pl</code> with background notifications.</p>
                 </div>
 
-                <div class="mini-feature">
-                  <div class="mini-feature-title">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                      <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                    </svg>
-                    <span data-i18n="usos_f4_title">Zero-Shared-Secret Security</span>
-                  </div>
+                <div class="capability-item">
+                  <h4 class="capability-title" data-i18n="usos_f4_title">Zero-Shared-Secret Security</h4>
                   <p data-i18n="usos_f4_desc">Automatic personal API key provisioning with USOSapps, hardware-backed Android Keystore encryption, and isolated Demo mode.</p>
                 </div>
               </div>
             </div>
 
-            <!-- Right: Interactive Screenshot Stage -->
             <div class="preview-stage">
               <div class="preview-controls">
                 <div class="segmented-group" role="group" aria-label="Select platform">
@@ -345,63 +313,60 @@
                 />
               </div>
               <div id="usos-preview-caption" class="screenshot-caption">
-                Desktop (Windows / Linux) — Dark Theme · Today view with live schedule &amp; recent changes
+                Desktop (Windows / Linux), Dark Theme · Today view with live schedule &amp; recent changes
               </div>
             </div>
           </div>
         </div>
-        </div>
+
         <div id="project-hana-bf" class="project-panel" role="tabpanel" aria-labelledby="ptab-hana-bf" hidden>
-        <div class="section-header">
-          <div>
-            <div class="section-eyebrow">
-              <span data-i18n="bf_eyebrow">Interactive Code Lab · a0w-svg/Hana_brainfuck</span>
+          <div class="section-header">
+            <div>
+              <h3 class="project-title" data-i18n="bf_title">Hana_brainfuck: Live Tape Interpreter</h3>
+              <p class="section-subtitle" data-i18n="bf_subtitle">
+                Run the Brainfuck programs from <code>a0w-svg/Hana_brainfuck/brainfuck_programs/</code> directly in your browser, including <code>AzamiOS.bf</code> and <code>hello.bf</code>.
+              </p>
             </div>
-            <h3 class="section-title project-title" data-i18n="bf_title">Hana_brainfuck — Live Tape Interpreter</h3>
-            <p class="section-subtitle" data-i18n="bf_subtitle">
-              Test-drive the actual Brainfuck programs from <code>a0w-svg/Hana_brainfuck/brainfuck_programs/</code> directly in your browser—including <code>AzamiOS.bf</code> and <code>hello.bf</code>.
-            </p>
-          </div>
-          <a href="https://github.com/a0w-svg/Hana_brainfuck" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
-            <span data-i18n="bf_source_btn">View C++ Source (a0w-svg/Hana_brainfuck)</span>
-          </a>
-        </div>
-
-        <div class="bf-card">
-          <div class="bf-toolbar">
-            <button type="button" class="btn btn-run btn-sm" id="bf-run-btn">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-              <span data-i18n="bf_run">Run Program</span>
-            </button>
-            <button type="button" class="btn btn-secondary btn-sm" id="bf-load-azami" data-i18n="bf_load_azami">Load brainfuck_programs/AzamiOS.bf</button>
-            <button type="button" class="btn btn-secondary btn-sm" id="bf-load-hello" data-i18n="bf_load_hello">Load brainfuck_programs/hello.bf</button>
-            <button type="button" class="btn btn-secondary btn-sm" id="bf-reset-btn" data-i18n="bf_reset">Reset Tape</button>
+            <a href="https://github.com/a0w-svg/Hana_brainfuck" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+              <span data-i18n="bf_source_btn">View C++ Source (a0w-svg/Hana_brainfuck)</span>
+            </a>
           </div>
 
-          <div class="bf-grid">
-            <div>
-              <label for="bf-code" class="mono" style="font-size: 0.78rem; color: var(--text-muted); display: block; margin-bottom: 6px;" data-i18n="bf_source_label">
-                SOURCE: brainfuck_programs/AzamiOS.bf
-              </label>
-              <textarea id="bf-code" class="bf-editor" spellcheck="false" aria-label="Brainfuck source code editor"></textarea>
+          <div class="bf-card">
+            <div class="bf-toolbar">
+              <button type="button" class="btn btn-run btn-sm" id="bf-run-btn">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                <span data-i18n="bf_run">Run Program</span>
+              </button>
+              <button type="button" class="btn btn-secondary btn-sm" id="bf-load-azami" data-i18n="bf_load_azami">Load brainfuck_programs/AzamiOS.bf</button>
+              <button type="button" class="btn btn-secondary btn-sm" id="bf-load-hello" data-i18n="bf_load_hello">Load brainfuck_programs/hello.bf</button>
+              <button type="button" class="btn btn-secondary btn-sm" id="bf-reset-btn" data-i18n="bf_reset">Reset Tape</button>
             </div>
 
-            <div>
-              <div class="mono" style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 6px;" data-i18n="bf_tape_label">
-                MEMORY TAPE (CELLS #0 – #7)
+            <div class="bf-grid">
+              <div>
+                <label for="bf-code" class="bf-field-label" data-i18n="bf_source_label">
+                  SOURCE: brainfuck_programs/AzamiOS.bf
+                </label>
+                <textarea id="bf-code" class="bf-editor" spellcheck="false" aria-label="Brainfuck source code editor"></textarea>
               </div>
-              <div id="bf-tape" class="bf-tape" aria-label="Brainfuck memory tape cells"></div>
 
-              <div class="bf-stdout-box">
-                <div class="bf-stdout-label">
-                  <span data-i18n="bf_stdout_label">STDOUT OUTPUT</span>
-                  <span id="bf-stats">0 ops executed</span>
+              <div>
+                <div class="bf-field-label" data-i18n="bf_tape_label">
+                  MEMORY TAPE (CELLS #0 – #7)
                 </div>
-                <div id="bf-stdout" class="bf-stdout-value" aria-live="polite">AzamiOS</div>
+                <div id="bf-tape" class="bf-tape" aria-label="Brainfuck memory tape cells"></div>
+
+                <div class="bf-stdout-box">
+                  <div class="bf-stdout-label">
+                    <span data-i18n="bf_stdout_label">STDOUT OUTPUT</span>
+                    <span id="bf-stats">0 ops executed</span>
+                  </div>
+                  <div id="bf-stdout" class="bf-stdout-value" aria-live="polite">AzamiOS</div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
         </div>
       </div>
     </section>
@@ -410,9 +375,6 @@
       <div class="container">
         <div class="section-header">
           <div>
-            <div class="section-eyebrow">
-              <span data-i18n="repos_eyebrow">Open-Source Index · github.com/a0w-svg</span>
-            </div>
             <h2 class="section-title" data-i18n="repos_title">All Public Repositories (11)</h2>
             <p class="section-subtitle" data-i18n="repos_subtitle">
               Filter by domain, search by language or keyword, or inspect the repository structure and architecture notes.
@@ -458,14 +420,13 @@
 
     <section id="about" class="section">
       <div class="container">
-        <div class="section-eyebrow" data-i18n="about_eyebrow">About</div>
         <h2 class="section-title" data-i18n="about_title">Systems and application developer from Poland</h2>
-        <p class="page-lead" data-i18n="about_lead">I write operating systems from bare metal in C and Assembly, and cross-platform apps in Kotlin. I have been publishing my work on GitHub since 2017 — from small Python tools to a 64-bit OS.</p>
+        <p class="page-lead" data-i18n="about_lead">I write operating systems from bare metal in C and Assembly, and cross-platform apps in Kotlin. I have published my work on GitHub since 2017, from small Python tools to a 64-bit OS.</p>
 
         <div class="timeline">
           <div class="timeline-step">
             <div class="timeline-year">2019 – 2020</div>
-            <div class="timeline-title" data-i18n="tl1_title">Python Automation &amp; First x86 Kernel</div>
+            <h3 class="timeline-title" data-i18n="tl1_title">Python Automation &amp; First x86 Kernel</h3>
             <p class="timeline-desc" data-i18n="tl1_desc">
               Built <code>alsq</code> Discord bot and <code>password-generator</code> in Python, then began low-level OS development with <strong>JakOS</strong> (Rose-lk 32-bit x86 kernel in C &amp; Assembly).
             </p>
@@ -473,15 +434,15 @@
 
           <div class="timeline-step">
             <div class="timeline-year">2021 – 2022</div>
-            <div class="timeline-title" data-i18n="tl2_title">C++, C# WPF, CTF Writeups &amp; AzamiOS Genesis</div>
+            <h3 class="timeline-title" data-i18n="tl2_title">C++, C# WPF, CTF Writeups &amp; Early AzamiOS</h3>
             <p class="timeline-desc" data-i18n="tl2_desc">
-              Created <strong>Banking_System_Project</strong>, <strong>Wei_Matrix_calc</strong> (C# WPF), <strong>KnightCTFWriteups</strong> (2022), <strong>Snake</strong> (C++), and started the <strong>AzamiOS</strong> &amp; <strong>Hana_brainfuck</strong> repositories.
+              Created <strong>Banking_System_Project</strong>, <strong>Wei_Matrix_calc</strong> (C# WPF), <strong>KnightCTFWriteups</strong> (2022), <strong>Snake</strong> (C++), and started the <strong>AzamiOS</strong> &amp; <strong>Hana_brainfuck</strong>&#160;repositories.
             </p>
           </div>
 
           <div class="timeline-step">
             <div class="timeline-year">2023 – 2025</div>
-            <div class="timeline-title" data-i18n="tl3_title">Embedded SDL Games &amp; Language Interpreters</div>
+            <h3 class="timeline-title" data-i18n="tl3_title">Embedded SDL Games &amp; Language Interpreters</h3>
             <p class="timeline-desc" data-i18n="tl3_desc">
               Explored retro handheld game architecture with <strong>yatka</strong> (C &amp; SDL 1.2) and refined <strong>Hana_brainfuck</strong> with custom Brainfuck programs (<code>AzamiOS.bf</code>).
             </p>
@@ -489,7 +450,7 @@
 
           <div class="timeline-step">
             <div class="timeline-year">2026</div>
-            <div class="timeline-title" data-i18n="tl4_title">64-Bit AzamiOS &amp; USOS Checker v1.10.0</div>
+            <h3 class="timeline-title" data-i18n="tl4_title">64-Bit AzamiOS &amp; USOS Checker v1.10.0</h3>
             <p class="timeline-desc" data-i18n="tl4_desc">
               Expanded <strong>AzamiOS</strong> into an 8.4+ MB 64-bit x86_64 OS running unmodified Linux binaries &amp; <code>azwm</code> GUI, and shipped 24 releases of <strong>USOS Checker</strong> for Android, Windows &amp; Linux.
             </p>
@@ -500,30 +461,32 @@
 
     <section id="contact" class="section">
       <div class="container">
-        <div class="section-eyebrow" data-i18n="contact_eyebrow">Contact</div>
         <h2 class="section-title" data-i18n="contact_title">Get in touch</h2>
         <p class="page-lead" data-i18n="contact_lead">The best way to reach me is GitHub. For questions about a specific project, open an issue in its repository.</p>
 
-        <div class="contact-grid">
-          <a href="https://github.com/a0w-svg" target="_blank" rel="noopener noreferrer" class="contact-card">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
-          </svg>
-            <h3 data-i18n="contact_gh_title">GitHub profile</h3>
-            <p data-i18n="contact_gh_desc">All public repositories, releases and activity.</p>
-            <span class="mono">github.com/a0w-svg ↗</span>
+        <div class="channel-list">
+          <a href="https://github.com/a0w-svg" target="_blank" rel="noopener noreferrer" class="channel-row">
+            <div>
+              <h3 class="channel-title" data-i18n="contact_gh_title">GitHub profile</h3>
+              <p class="channel-desc" data-i18n="contact_gh_desc">All public repositories, releases and&#160;activity.</p>
+            </div>
+            <span class="channel-link">github.com/a0w-svg ↗</span>
           </a>
-          <a href="https://github.com/a0w-svg/AzamiOS/issues" target="_blank" rel="noopener noreferrer" class="contact-card">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-            <h3 data-i18n="contact_azami_title">AzamiOS — issues</h3>
-            <p data-i18n="contact_azami_desc">Bug reports and questions about the kernel, drivers and userspace.</p>
-            <span class="mono">a0w-svg/AzamiOS ↗</span>
+
+          <a href="https://github.com/a0w-svg/AzamiOS/issues" target="_blank" rel="noopener noreferrer" class="channel-row">
+            <div>
+              <h3 class="channel-title" data-i18n="contact_azami_title">AzamiOS issues</h3>
+              <p class="channel-desc" data-i18n="contact_azami_desc">Bug reports and questions about the kernel, drivers and userspace.</p>
+            </div>
+            <span class="channel-link">a0w-svg/AzamiOS ↗</span>
           </a>
-          <a href="https://github.com/a0w-svg/usoschecker-public/issues" target="_blank" rel="noopener noreferrer" class="contact-card">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-            <h3 data-i18n="contact_usos_title">USOS Checker — issues</h3>
-            <p data-i18n="contact_usos_desc">Bug reports and feature ideas for the Android and desktop app.</p>
-            <span class="mono">a0w-svg/usoschecker-public ↗</span>
+
+          <a href="https://github.com/a0w-svg/usoschecker-public/issues" target="_blank" rel="noopener noreferrer" class="channel-row">
+            <div>
+              <h3 class="channel-title" data-i18n="contact_usos_title">USOS Checker issues</h3>
+              <p class="channel-desc" data-i18n="contact_usos_desc">Bug reports and feature ideas for the Android and desktop app.</p>
+            </div>
+            <span class="channel-link">a0w-svg/usoschecker-public ↗</span>
           </a>
         </div>
       </div>
@@ -534,8 +497,8 @@
     <div class="modal-dialog">
       <div class="modal-header">
         <div>
-          <div class="mono" style="font-size: 0.78rem; color: var(--accent-emerald);" id="modal-repo-lang">C · GPL-2.0</div>
-          <h3 id="modal-repo-title" class="mono" style="font-size: 1.35rem; margin-top: 4px;">AzamiOS</h3>
+          <h3 id="modal-repo-title" class="modal-title mono">AzamiOS</h3>
+          <div class="modal-meta" id="modal-repo-lang">C · GPL-2.0</div>
         </div>
         <button type="button" id="modal-close-btn" class="icon-btn" aria-label="Close modal">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -544,10 +507,10 @@
           </svg>
         </button>
       </div>
-      <p id="modal-repo-desc" style="color: var(--text-secondary); font-size: 0.92rem;"></p>
-      <div class="mono" style="font-size: 0.76rem; color: var(--text-muted); margin-top: 16px;" data-i18n="modal_tree_label">REPOSITORY TREE &amp; SUBSYSTEMS</div>
+      <p id="modal-repo-desc" class="modal-desc"></p>
+      <div class="modal-tree-label" data-i18n="modal_tree_label">REPOSITORY TREE &amp; SUBSYSTEMS</div>
       <pre id="modal-repo-tree" class="modal-tree"></pre>
-      <div style="display: flex; justify-content: flex-end; gap: 10px;">
+      <div class="modal-actions">
         <a id="modal-repo-link" href="https://github.com/a0w-svg" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
           <span data-i18n="modal_open">Open on GitHub</span>
         </a>
